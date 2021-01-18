@@ -1,4 +1,5 @@
 import os
+
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
@@ -6,7 +7,7 @@ from dotenv import load_dotenv
 # basic settings
 load_dotenv()
 token = os.getenv("token")
-bot = commands.Bot(command_prefix="/", help_command=None)
+bot = commands.Bot(command_prefix="\\", help_command=None)
 
 cogs = [
     'commands.code.rextester',
