@@ -42,7 +42,6 @@ class Contestproblems(commands.Cog):
     @commands.command()
     async def amc10(self, ctx, difficulty):
         amc10_id = ["10A", "10B"]
-        lastfive = str(int(random.randint(20, 25)))
         randomyear = str(int(random.randint(2002, 2019)))
         randomcontestid = str(random.choice(amc10_id))
 
