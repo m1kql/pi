@@ -6,12 +6,18 @@ from dotenv import load_dotenv
 # basic settings
 load_dotenv()
 token = os.getenv("token")
-bot = commands.Bot(command_prefix="'", help_command=None)
+bot = commands.Bot(command_prefix="/", help_command=None)
 
 cogs = [
     'commands.code.rextester',
     'commands.math.contestproblems',
 ]
+
+for cog in cogs:
+    try:
+        bot.load_extension(cog)
+    except Exception as e:
+        print(f'Could not load cog {cog}: {str(e)}')
 
 @bot.event
 async def on_ready():
