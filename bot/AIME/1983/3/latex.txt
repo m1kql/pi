@@ -1,2 +1,0 @@
-What is the product of the real roots of the equation $x^2 + 18x + 30 = 2 \sqrt{x^2 + 18x + 45}$?
- 

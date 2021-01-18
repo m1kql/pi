@@ -1,2 +1,0 @@
-How many positive perfect squares less than $10^6$ are multiples of $24$? 
- 

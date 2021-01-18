@@ -1,2 +1,0 @@
-If $\tan x+\tan y=25$ and $\cot x + \cot y=30$, what is $\tan(x+y)$?
- 

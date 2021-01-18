@@ -1,2 +1,0 @@
-What is the smallest positive integer that can be expressed as the sum of nine consecutive integers, the sum of ten consecutive integers, and the sum of eleven consecutive integers?
- 

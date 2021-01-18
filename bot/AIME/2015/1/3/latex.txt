@@ -1,2 +1,0 @@
-There is a prime number $p$ such that $16p+1$ is the cube of a positive integer.  Find $p$.
- 

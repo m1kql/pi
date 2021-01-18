@@ -1,2 +1,0 @@
-Find the largest integer $n$ satisfying the following conditions:
- 

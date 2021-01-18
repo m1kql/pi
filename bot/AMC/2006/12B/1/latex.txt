@@ -1,4 +1,0 @@
-What is $( - 1)^1 + ( - 1)^2 + \cdots + ( - 1)^{2006}$?
- 
-$\text {(A) } - 2006 \qquad \text {(B) } - 1 \qquad \text {(C) } 0 \qquad \text {(D) } 1 \qquad \text {(E) } 2006$
- 
