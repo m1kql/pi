@@ -5,6 +5,11 @@ import discord
 import requests
 from discord.ext import commands
 
+amc10weight=0.2
+amc12weight=0.3
+last5weight=0.3
+randomweight=0.2
+
 class Contestproblems(commands.Cog):
 
     def __init__(self, bot):
@@ -19,9 +24,6 @@ class Contestproblems(commands.Cog):
     # All Math Commands
     @commands.command()
     async def fetchamc(self, ctx, year=None, contest_id=None, problem_num=None):
-        await open_account(self, ctx.author)
-        users = await get_points_data(self)
-        user = ctx.author
 
         if year != None and problem_num != None and contest_id != None:
             requested_year = str(year)
@@ -30,7 +32,6 @@ class Contestproblems(commands.Cog):
             emojis = {"🇦":"a", "🇧":"b", "🇨":"c", "🇩":"d", "🇪":"e"}
 
             tried = []
-            earned_points = []
 
             def check(reaction, user):
                 return user == ctx.message.author and reaction.emoji in emojis and user.id not in tried
@@ -47,15 +48,12 @@ class Contestproblems(commands.Cog):
                 reaction, user = await self.bot.wait_for('reaction_add', check=check)
 
                 if emojis[reaction.emoji] == sol:
-                    users[str(user.id)]["points"] += 6
-                    with open("mathpoints.json", "w") as f:
-                        json.dump(users, f)
-                    await ctx.send("Correct. You earned 6 points. You may want to check against this to get a better understanding")
+                    await ctx.send("Correct. You may want to check against this to get a better understanding")
                     await ctx.send(f'https://artofproblemsolving.com/wiki/index.php?title={requested_year}_AMC_{requested_id}_Problems/Problem_{requested_problem}')
                     break    
                 else:
                     tried.append(user.id)
-                    await ctx.send("Wrong. You have lost 1 point. You may want to check against this go get a better understanding")
+                    await ctx.send("Wrong. You may want to check against this go get a better understanding")
                     await ctx.send(f'https://artofproblemsolving.com/wiki/index.php?title={requested_year}_AMC_{requested_id}_Problems/Problem_{requested_problem}')
                     break
     
@@ -91,7 +89,12 @@ class Contestproblems(commands.Cog):
 
     @commands.command()
     async def last5(self, ctx):
-        contestid = ["10A", "10B", "12A", "12B"]
+
+        await open_account(self, ctx.author)
+        users = await get_points_data(self)
+        user = ctx.author
+
+        contestid = ["10A", "12B"]
         lastfive = str(int(random.randint(20, 25)))
         randomyear = str(int(random.randint(2002, 2019)))
         randomcontestid = str(random.choice(contestid))
@@ -114,17 +117,31 @@ class Contestproblems(commands.Cog):
             reaction, user = await self.bot.wait_for('reaction_add', check=check)
 
             if emojis[reaction.emoji] == sol:
+                users[str(user.id)]["last5"] += 6
+                users[str(user.id)]["questions"]+=1
+                with open("mathpoints.json", "w") as f:
+                    json.dump(users, f)
                 await ctx.send("Correct. You may want to check against this to get a better understanding")
                 await ctx.send(f'https://artofproblemsolving.com/wiki/index.php?title={randomyear}_AMC_{randomcontestid}_Problems/Problem_{lastfive}')
                 break
             else:
                 tried.append(user.id)
+                users[str(user.id)]["last5"] -= 0
+                users[str(user.id)]["questions"]+=1
+                with open("mathpoints.json", "w") as f:
+                    json.dump(users, f)
                 await ctx.send("Wrong. You may want to check against this go get a better understanding")
                 await ctx.send(f'https://artofproblemsolving.com/wiki/index.php?title={randomyear}_AMC_{randomcontestid}_Problems/Problem_{lastfive}')
                 break
 
     @commands.command()
     async def amc10(self, ctx, difficulty):
+
+        await open_account(self, ctx.author)
+        users = await get_points_data(self)
+        user = ctx.author
+
+
         amc10_id = ["10A", "10B"]
         randomyear = str(int(random.randint(2002, 2019)))
         randomcontestid = str(random.choice(amc10_id))
@@ -151,10 +168,18 @@ class Contestproblems(commands.Cog):
                 reaction, user = await self.bot.wait_for('reaction_add', check=check)
 
                 if emojis[reaction.emoji] == sol:
+                    users[str(user.id)]["amc10"] += 1
+                    users[str(user.id)]["questions"]+=1
+                    with open("mathpoints.json", "w") as f:
+                        json.dump(users, f)
                     await ctx.send("Correct. You may want to check against this to get a better understanding")
                     await ctx.send(f'https://artofproblemsolving.com/wiki/index.php?title={randomyear}_AMC_{randomcontestid}_Problems/Problem_{easy}')
                     break
                 else:
+                    users[str(user.id)]["amc10"] -= 2
+                    users[str(user.id)]["questions"]+=1
+                    with open("mathpoints.json", "w") as f:
+                        json.dump(users, f)
                     tried.append(user.id)
                     await ctx.send("Wrong. You may want to check against this go get a better understanding")
                     await ctx.send(f'https://artofproblemsolving.com/wiki/index.php?title={randomyear}_AMC_{randomcontestid}_Problems/Problem_{easy}')
@@ -176,10 +201,18 @@ class Contestproblems(commands.Cog):
                 reaction, user = await self.bot.wait_for('reaction_add', check=check)
 
                 if emojis[reaction.emoji] == sol:
+                    users[str(user.id)]["amc10"] += 4
+                    users[str(user.id)]["questions"]+=1
+                    with open("mathpoints.json", "w") as f:
+                        json.dump(users, f)
                     await ctx.send("Correct. You may want to check against this to get a better understanding")
                     await ctx.send(f'https://artofproblemsolving.com/wiki/index.php?title={randomyear}_AMC_{randomcontestid}_Problems/Problem_{med}')
                     break
                 else:
+                    users[str(user.id)]["amc10"] -= 1.5
+                    users[str(user.id)]["questions"]+=1
+                    with open("mathpoints.json", "w") as f:
+                        json.dump(users, f)
                     tried.append(user.id)
                     await ctx.send("Wrong. You may want to check against this go get a better understanding")
                     await ctx.send(f'https://artofproblemsolving.com/wiki/index.php?title={randomyear}_AMC_{randomcontestid}_Problems/Problem_{med}')
@@ -202,10 +235,18 @@ class Contestproblems(commands.Cog):
                 reaction, user = await self.bot.wait_for('reaction_add', check=check)
 
                 if emojis[reaction.emoji] == sol:
+                    users[str(user.id)]["amc10"] += 6
+                    users[str(user.id)]["questions"]+=1
+                    with open("mathpoints.json", "w") as f:
+                        json.dump(users, f)
                     await ctx.send("Correct. You may want to check against this to get a better understanding")
                     await ctx.send(f'https://artofproblemsolving.com/wiki/index.php?title={randomyear}_AMC_{randomcontestid}_Problems/Problem_{hard}')
                     break
                 else:
+                    users[str(user.id)]["amc10"] -= 0.5
+                    users[str(user.id)]["questions"]+=1
+                    with open("mathpoints.json", "w") as f:
+                        json.dump(users, f)
                     tried.append(user.id)
                     await ctx.send("Wrong. You may want to check against this go get a better understanding")
                     await ctx.send(f'https://artofproblemsolving.com/wiki/index.php?title={randomyear}_AMC_{randomcontestid}_Problems/Problem_{hard}')
@@ -213,6 +254,11 @@ class Contestproblems(commands.Cog):
 
     @commands.command()
     async def amc12(self, ctx, difficulty):
+
+        await open_account(self, ctx.author)
+        users = await get_points_data(self)
+        user = ctx.author
+
         amc12_id = ["12A", "12B"]
         randomyear = str(int(random.randint(2002, 2019)))
         randomcontestid = str(random.choice(amc12_id))
@@ -238,10 +284,18 @@ class Contestproblems(commands.Cog):
                 reaction, user = await self.bot.wait_for('reaction_add', check=check)
 
                 if emojis[reaction.emoji] == sol:
+                    users[str(user.id)]["amc12"] += 2
+                    users[str(user.id)]["questions"]+=1
+                    with open("mathpoints.json", "w") as f:
+                        json.dump(users, f)
                     await ctx.send("Correct. You may want to check against this to get a better understanding")
                     await ctx.send(f'https://artofproblemsolving.com/wiki/index.php?title={randomyear}_AMC_{randomcontestid}_Problems/Problem_{easy}')
                     break
                 else:
+                    users[str(user.id)]["amc12"] -= 1
+                    users[str(user.id)]["questions"]+=1
+                    with open("mathpoints.json", "w") as f:
+                        json.dump(users, f)
                     tried.append(user.id)
                     await ctx.send("Wrong. You may want to check against this go get a better understanding")
                     await ctx.send(f'https://artofproblemsolving.com/wiki/index.php?title={randomyear}_AMC_{randomcontestid}_Problems/Problem_{easy}')
@@ -263,10 +317,18 @@ class Contestproblems(commands.Cog):
                 reaction, user = await self.bot.wait_for('reaction_add', check=check)
 
                 if emojis[reaction.emoji] == sol:
+                    users[str(user.id)]["amc12"] += 5
+                    users[str(user.id)]["questions"]+=1
+                    with open("mathpoints.json", "w") as f:
+                        json.dump(users, f)
                     await ctx.send("Correct. You may want to check against this to get a better understanding")
                     await ctx.send(f'https://artofproblemsolving.com/wiki/index.php?title={randomyear}_AMC_{randomcontestid}_Problems/Problem_{med}')
                     break
                 else:
+                    users[str(user.id)]["amc12"] -= 1
+                    users[str(user.id)]["questions"]+=1
+                    with open("mathpoints.json", "w") as f:
+                        json.dump(users, f)
                     tried.append(user.id)
                     await ctx.send("Wrong. You may want to check against this go get a better understanding")
                     await ctx.send(f'https://artofproblemsolving.com/wiki/index.php?title={randomyear}_AMC_{randomcontestid}_Problems/Problem_{med}')
@@ -287,10 +349,18 @@ class Contestproblems(commands.Cog):
                 reaction, user = await self.bot.wait_for('reaction_add', check=check)
 
                 if emojis[reaction.emoji] == sol:
+                    users[str(user.id)]["amc12"] += 6
+                    users[str(user.id)]["questions"]+=1
+                    with open("mathpoints.json", "w") as f:
+                        json.dump(users, f)
                     await ctx.send("Correct. You may want to check against this to get a better understanding")
                     await ctx.send(f'https://artofproblemsolving.com/wiki/index.php?title={randomyear}_AMC_{randomcontestid}_Problems/Problem_{hard}')
                     break
                 else:
+                    users[str(user.id)]["amc12"] -= 0.5
+                    users[str(user.id)]["questions"]+=1
+                    with open("mathpoints.json", "w") as f:
+                        json.dump(users, f)
                     tried.append(user.id)
                     await ctx.send("Wrong. You may want to check against this go get a better understanding")
                     await ctx.send(f'https://artofproblemsolving.com/wiki/index.php?title={randomyear}_AMC_{randomcontestid}_Problems/Problem_{hard}')
@@ -299,33 +369,98 @@ class Contestproblems(commands.Cog):
 
     @commands.command()
     async def random(self, ctx, contest_type=None):
+
+        await open_account(self, ctx.author)
+        users = await get_points_data(self)
+        user = ctx.author
+
+        emojis = {"🇦":"a", "🇧":"b", "🇨":"c", "🇩":"d", "🇪":"e"}
+
         if contest_type == 'amc' or contest_type == 'AMC':
-            emojis = {"🇦":"a", "🇧":"b", "🇨":"c", "🇩":"d", "🇪":"e"}
-            amc_id = ["10A", "12A", "12A", "12B"]
-            randomcontestid = str(random.choice(amc_id))
-            randomyear = str(int(random.randint(2002, 2019)))
-            problem_num = str(int(random.randint(1, 25)))
+            
+            tried = []
 
             def check(reaction, user):
-                return user == ctx.message.author
+                return user == ctx.message.author and reaction.emoji in emojis and user.id not in tried
 
-            sol = open(f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{randomcontestid}/{problem_num}/sol.txt', 'r').read()
-            question = await ctx.send(f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{randomcontestid}/{problem_num}/statement.png')
-            for i in emojis:
-                await question.add_reaction(i)
-            reaction, user = await self.bot.wait_for('reaction_add', check=check)
-            if reaction == sol:
-                await ctx.send("Correct. You may want to check against this to get a better understanding")
+            while True:
+                amc_id = ["10A", "12A", "10B", "12B"]
+                randomcontestid = str(random.choice(amc_id))
+                randomyear = str(int(random.randint(2002, 2019)))
+                problem_num = str(int(random.randint(13, 25)))
 
-        if contest_type == 'aime' or contest_type == 'AIME':
-            randomyear = str(int(random.randint(2000, 2019)))
-            contest_id = str(int(random.randint(1,2)))
-            problem_num = str(int(random.randint(1, 15)))
-            await ctx.send(f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AIME/{randomyear}/{contest_id}/{problem_num}/statement.png')
-        if contest_type == 'usamo' or contest_type == 'USAMO':
-            randomyear = str(int(random.randint(2000, 2019)))
-            contest_id = str(int(random.randint(1,2)))
-            problem_num = str(int(random.randint(1, 15)))
+                url = f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{randomcontestid}/{problem_num}/sol.txt'
+                page = requests.get(url)
+                sol = str(page.text)
+
+                question = await ctx.send(f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{randomcontestid}/{problem_num}/statement.png')
+
+                for i in emojis:
+                    await question.add_reaction(i)
+
+                reaction, user = await self.bot.wait_for('reaction_add', check=check)
+
+                if emojis[reaction.emoji] == sol:
+                    users[str(user.id)]["randomq"] += 5.5
+                    users[str(user.id)]["questions"]+=1
+                    with open("mathpoints.json", "w") as f:
+                        json.dump(users, f)
+                    await ctx.send("Correct. You may want to check against this to get a better understanding")
+                    await ctx.send(f'https://artofproblemsolving.com/wiki/index.php?title={randomyear}_AMC_{randomcontestid}_Problems/Problem_{problem_num}')
+                    break
+                else:
+                    users[str(user.id)]["randomq"] -= 0.5
+                    users[str(user.id)]["questions"]+=1
+                    with open("mathpoints.json", "w") as f:
+                        json.dump(users, f)
+                    tried.append(user.id)
+                    await ctx.send("Wrong. You may want to check against this go get a better understanding")
+                    await ctx.send(f'https://artofproblemsolving.com/wiki/index.php?title={randomyear}_AMC_{randomcontestid}_Problems/Problem_{problem_num}')
+                    break
+
+        elif contest_type == 'aime' or contest_type == 'AIME':
+            tried = []
+
+            def check(reaction, user):
+                return user == ctx.message.author and reaction.emoji in emojis and user.id not in tried
+
+            while True:
+                randomyear = str(int(random.randint(2000, 2019)))
+                contest_id = str(int(random.randint(1,2)))
+                problem_num = str(int(random.randint(1, 15)))
+                
+                url = f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AIME/{randomyear}/{contest_id}/{problem_num}/sol.txt'
+                page = requests.get(url)
+                sol = str(page.text)
+
+                question = await ctx.send(f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AIME/{randomyear}/{contest_id}/{problem_num}/statement.png')
+
+                for i in emojis:
+                    await question.add_reaction(i)
+                reaction, user = await self.bot.wait_for('reaction_add', check=check)
+
+                if emojis[reaction.emoji] == sol:
+                    await ctx.send("Correct. You may want to check against this to get a better understanding")
+                    await ctx.send(f'https://artofproblemsolving.com/wiki/index.php?title={randomyear}_AIME_{contest_id}_Problems/Problem_{problem_num}')
+                    break
+                else: 
+                    tried.append(user.id)
+                    await ctx.send("Wrong. You may want to check against this go get a better understanding")
+                    await ctx.send(f'https://artofproblemsolving.com/wiki/index.php?title={randomyear}_AIME_{contest_id}_Problems/Problem_{problem_num}')
+                    break
+
+
+        elif contest_type == 'usamo' or contest_type == 'USAMO':
+
+            tried = []
+
+            def check(reaction, user):
+                return user == ctx.message.author and reaction.emoji in emojis and user.id not in tried
+
+            while True:
+                randomyear = str(int(random.randint(2000, 2019)))
+                contest_id = str(int(random.randint(1,2)))
+                problem_num = str(int(random.randint(1, 15)))
 
 
 
@@ -335,10 +470,19 @@ class Contestproblems(commands.Cog):
         await open_account(self, ctx.author)
         users = await get_points_data(self)
         user = ctx.author
-        points_scored = users[str(user.id)]["points"]
+        last5_weighted = (last5weight*(int(users[str(user.id)]["last5"])))/(int(users[str(user.id)]["questions"]))
+        amc10_weighted = (amc10weight*(int(users[str(user.id)]["amc10"])))/(int(users[str(user.id)]["questions"]))
+        amc12_weighted = (amc12weight*(int(users[str(user.id)]["amc12"])))/int(users[str(user.id)]["questions"])
+        random_weighted = (randomweight*(int(users[str(user.id)]["randomq"]))/(int(users[str(user.id)]["questions"])))
+
+        total_weighted_score = last5_weighted+amc10_weighted+amc12_weighted+random_weighted
 
         emb = discord.Embed(title=f"{ctx.author.name}'s points", color=discord.Color.blue())
-        emb.add_field(name="Points:", value= points_scored)
+        emb.add_field(name="Last 5:", value=last5_weighted)
+        emb.add_field(name="AMC 10:", value=amc10_weighted)
+        emb.add_field(name="AMC 12:", value=amc12_weighted)
+        emb.add_field(name="Random:", value=random_weighted)
+        emb.add_field(name="Total Score:", value=total_weighted_score)
         await ctx.send(embed=emb)
 
 async def open_account(self, user):
@@ -348,8 +492,12 @@ async def open_account(self, user):
         return False
     else:
         users[str(user.id)] = {}
-        users[str(user.id)]["points"] = 0
-        
+        users[str(user.id)]["last5"] = 0
+        users[str(user.id)]["amc10"] = 0
+        users[str(user.id)]["amc12"] = 0
+        users[str(user.id)]["randomq"] = 0
+        users[str(user.id)]["questions"] = 1
+
     with open("mathpoints.json", "w") as f:
         json.dump(users, f)
 
