@@ -18,8 +18,11 @@ class Contestproblems(commands.Cog):
             requested_year = str(year)
             requested_id = str(contest_id.upper())
             requested_problem = str(problem_num)
+            emojis = ['🇦', '🇧', '🇨', '🇩', '🇪']
             try:
-                await ctx.send(f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{requested_year}/{requested_id}/{requested_problem}/statement.png')
+                question = await ctx.send(f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{requested_year}/{requested_id}/{requested_problem}/statement.png')
+                for i in emojis:
+                    await question.add_reaction(i)
             except:
                 await ctx.send("Sorry there was an error processing this command")
     
@@ -59,8 +62,11 @@ class Contestproblems(commands.Cog):
         lastfive = str(int(random.randint(20, 25)))
         randomyear = str(int(random.randint(2002, 2019)))
         randomcontestid = str(random.choice(contestid))
+        emojis = ['🇦', '🇧', '🇨', '🇩', '🇪']
         try:
-            await ctx.send(f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{randomcontestid}/{lastfive}/statement.png')
+            question = await ctx.send(f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{randomcontestid}/{lastfive}/statement.png')
+            for i in emojis:
+                await question.add_reaction(i)
         except:
             await ctx.send("Sorry there was an error processing this command")
 
@@ -69,46 +75,65 @@ class Contestproblems(commands.Cog):
         amc10_id = ["10A", "10B"]
         randomyear = str(int(random.randint(2002, 2019)))
         randomcontestid = str(random.choice(amc10_id))
-
+        emojis = ['🇦', '🇧', '🇨', '🇩', '🇪']
         if difficulty == "easy" or difficulty == "e":
             easy= str(int(random.randint(1, 10)))
-            await ctx.send(f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{randomcontestid}/{easy}/statement.png')
+            question = await ctx.send(f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{randomcontestid}/{easy}/statement.png')
+            for i in emojis:
+                await question.add_reaction(i)
         elif difficulty == "med" or difficulty == "medium" or difficulty == "m":
             med = str(int(random.randint(11,16)))
-            await ctx.send(f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{randomcontestid}/{med}/statement.png')
+            question = await ctx.send(f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{randomcontestid}/{med}/statement.png')
+            for i in emojis:
+                await question.add_reaction(i)
         elif difficulty == "hard" or difficulty == "h":
             hard = str(int(random.randint(17, 25)))
-            await ctx.send(f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{randomcontestid}/{hard}/statement.png')
+            question = await ctx.send(f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{randomcontestid}/{hard}/statement.png')
+            for i in emojis:
+                await question.add_reaction(i)
 
     @commands.command()
     async def amc12(self, ctx, difficulty):
         amc12_id = ["12A", "12B"]
         randomyear = str(int(random.randint(2002, 2019)))
         randomcontestid = str(random.choice(amc12_id))
-
+        emojis = ['🇦', '🇧', '🇨', '🇩', '🇪']
         if difficulty == "easy" or difficulty == "e":
             easy= str(int(random.randint(1, 10)))
-            await ctx.send(f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{randomcontestid}/{easy}/statement.png')
+            question = await ctx.send(f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{randomcontestid}/{easy}/statement.png')
+            for i in emojis:
+                await question.add_reaction(i)
         elif difficulty == "med" or difficulty == "medium" or difficulty == "m":
             med = str(int(random.randint(11,16)))
-            await ctx.send(f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{randomcontestid}/{med}/statement.png')
+            question = await ctx.send(f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{randomcontestid}/{med}/statement.png')
+            for i in emojis:
+                await question.add_reaction(i)
         elif difficulty == "hard" or difficulty == "h":
             hard = str(int(random.randint(17, 25)))
-            await ctx.send(f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{randomcontestid}/{hard}/statement.png')
+            quesiton = await ctx.send(f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{randomcontestid}/{hard}/statement.png')
+            for i in emojis:
+                await question.add_reaction(i)
     
     @commands.command()
     async def random(self, ctx, contest_type=None):
         if contest_type == 'amc' or contest_type == 'AMC':
+            emojis = ['🇦', '🇧', '🇨', '🇩', '🇪']
             amc_id = ["10A", "12A", "12A", "12B"]
             randomcontestid = str(random.choice(amc_id))
             randomyear = str(int(random.randint(2002, 2019)))
             problem_num = str(int(random.randint(1, 25)))
-            await ctx.send(f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{randomcontestid}/{problem_num}/statement.png')
+            question = await ctx.send(f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{randomcontestid}/{problem_num}/statement.png')
+            for i in emojis:
+                await question.add_reaction(i)
         if contest_type == 'aime' or contest_type == 'AIME':
             randomyear = str(int(random.randint(2000, 2019)))
             contest_id = str(int(random.randint(1,2)))
             problem_num = str(int(random.randint(1, 15)))
             await ctx.send(f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AIME/{randomyear}/{contest_id}/{problem_num}/statement.png')
+        if contest_type == 'usamo' or contest_type == 'USAMO':
+            randomyear = str(int(random.randint(2000, 2019)))
+            contest_id = str(int(random.randint(1,2)))
+            problem_num = str(int(random.randint(1, 15)))
 
 def setup(bot):
     bot.add_cog(Contestproblems(bot))
