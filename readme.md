@@ -1,1 +1,13 @@
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/yak-fumblepack/pi/Test%20python%20app?style=plastic)&nbsp;![GitHub](https://img.shields.io/github/license/yak-fumblepack/pi?style=plastic)
+### Pi Discord Bot
+![GitHub](https://img.shields.io/github/license/yak-fumblepack/pi?style=plastic)
+
+
+An academics focused discord bot that is aimed at helping students with an interest in mathematics to succeed. Can pull problems from the AOPS wiki, run code, and much more. 
+
+
+Supported Contests include: 
+- AMC 10 & 12
+- AIME
+- USAMO
+- USAJMO
+
