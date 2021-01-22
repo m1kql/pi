@@ -29,4 +29,4 @@ That's all you need to host the bot locally, but if you do want to host it 24/7,
 Contributions are most welcome and appreciated. Please make a seperate branch and then we will merge it to `dev` before pushing to `master` after approval. It would also be greatly appreciated if you run autopep8 to format before pushing. 
 
 ## License 
-GPL-3.0 - see [LICENSE](https://github.com/yak-fumblepack/pi/blob/master/LICENSE) file for mode details.
+GPL-3.0 - see [LICENSE](https://github.com/yak-fumblepack/pi/blob/master/LICENSE) file for more details.
