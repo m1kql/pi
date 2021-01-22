@@ -39,7 +39,7 @@ class Contestproblems(commands.Cog):
             while True:
                 url = f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{requested_year}/{requested_id}/{requested_problem}/sol.txt'
                 page = requests.get(url)
-                sol = str(page.text)
+                sol = str((str(page.text).strip()))
                 question = await ctx.send(f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{requested_year}/{requested_id}/{requested_problem}/statement.png')
 
                 for i in emojis:
@@ -108,7 +108,7 @@ class Contestproblems(commands.Cog):
         while True:
             url = f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{randomcontestid}/{lastfive}/sol.txt'
             page = requests.get(url)
-            sol = str(page.text)
+            sol = str((str(page.text).strip()))
             question = await ctx.send(f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{randomcontestid}/{lastfive}/statement.png')
 
             for i in emojis:
@@ -159,7 +159,7 @@ class Contestproblems(commands.Cog):
             while True:
                 url = f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{randomcontestid}/{easy}/sol.txt'
                 page = requests.get(url)
-                sol = str(page.text)
+                sol = str((str(page.text).strip()))
                 question = await ctx.send(f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{randomcontestid}/{easy}/statement.png')
 
                 for i in emojis:
@@ -192,7 +192,7 @@ class Contestproblems(commands.Cog):
             while True:
                 url = f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{randomcontestid}/{med}/sol.txt'
                 page = requests.get(url)
-                sol = str(page.text)
+                sol = str((str(page.text).strip()))
                 question = await ctx.send(f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{randomcontestid}/{med}/statement.png')
 
                 for i in emojis:
@@ -226,7 +226,7 @@ class Contestproblems(commands.Cog):
             while True:
                 url = f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{randomcontestid}/{hard}/sol.txt'
                 page = requests.get(url)
-                sol = str(page.text)
+                sol = str((str(page.text).strip()))
                 question = await ctx.send(f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{randomcontestid}/{hard}/statement.png')
 
                 for i in emojis:
@@ -275,7 +275,7 @@ class Contestproblems(commands.Cog):
             while True:
                 url = f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{randomcontestid}/{easy}/sol.txt'
                 page = requests.get(url)
-                sol = str(page.text)
+                sol = str((str(page.text).strip()))
                 question = await ctx.send(f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{randomcontestid}/{easy}/statement.png')
 
                 for i in emojis:
@@ -308,7 +308,7 @@ class Contestproblems(commands.Cog):
             while True:
                 url = f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{randomcontestid}/{med}/sol.txt'
                 page = requests.get(url)
-                sol = str(page.text)
+                sol = str((str(page.text).strip()))
                 question = await ctx.send(f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{randomcontestid}/{med}/statement.png')
 
                 for i in emojis:
@@ -340,7 +340,7 @@ class Contestproblems(commands.Cog):
             while True:
                 url = f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{randomcontestid}/{hard}/sol.txt'
                 page = requests.get(url)
-                sol = str(page.text)
+                sol = str((str(page.text).strip()))
                 question = await ctx.send(f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{randomcontestid}/{hard}/statement.png')
 
                 for i in emojis:
@@ -391,7 +391,7 @@ class Contestproblems(commands.Cog):
 
                 url = f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{randomcontestid}/{problem_num}/sol.txt'
                 page = requests.get(url)
-                sol = str(page.text)
+                sol = str((str(page.text).strip()))
 
                 question = await ctx.send(f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{randomcontestid}/{problem_num}/statement.png')
 
@@ -419,48 +419,16 @@ class Contestproblems(commands.Cog):
                     break
 
         elif contest_type == 'aime' or contest_type == 'AIME':
-            tried = []
-
-            def check(reaction, user):
-                return user == ctx.message.author and reaction.emoji in emojis and user.id not in tried
-
-            while True:
-                randomyear = str(int(random.randint(2000, 2019)))
-                contest_id = str(int(random.randint(1,2)))
-                problem_num = str(int(random.randint(1, 15)))
-                
-                url = f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AIME/{randomyear}/{contest_id}/{problem_num}/sol.txt'
-                page = requests.get(url)
-                sol = str(page.text)
-
-                question = await ctx.send(f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AIME/{randomyear}/{contest_id}/{problem_num}/statement.png')
-
-                for i in emojis:
-                    await question.add_reaction(i)
-                reaction, user = await self.bot.wait_for('reaction_add', check=check)
-
-                if emojis[reaction.emoji] == sol:
-                    await ctx.send("Correct. You may want to check against this to get a better understanding")
-                    await ctx.send(f'https://artofproblemsolving.com/wiki/index.php?title={randomyear}_AIME_{contest_id}_Problems/Problem_{problem_num}')
-                    break
-                else: 
-                    tried.append(user.id)
-                    await ctx.send("Wrong. You may want to check against this go get a better understanding")
-                    await ctx.send(f'https://artofproblemsolving.com/wiki/index.php?title={randomyear}_AIME_{contest_id}_Problems/Problem_{problem_num}')
-                    break
+            randomyear = str(int(random.randint(2000, 2019)))
+            contest_id = str(int(random.randint(1,2)))
+            problem_num = str(int(random.randint(1, 15)))
+            await ctx.send(f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AIME/{randomyear}/{contest_id}/{problem_num}/statement.png')
 
 
         elif contest_type == 'usamo' or contest_type == 'USAMO':
-
-            tried = []
-
-            def check(reaction, user):
-                return user == ctx.message.author and reaction.emoji in emojis and user.id not in tried
-
-            while True:
-                randomyear = str(int(random.randint(2000, 2019)))
-                contest_id = str(int(random.randint(1,2)))
-                problem_num = str(int(random.randint(1, 15)))
+            randomyear = str(int(random.randint(2000, 2019)))
+            contest_id = str(int(random.randint(1,2)))
+            problem_num = str(int(random.randint(1, 15)))
 
 
 
