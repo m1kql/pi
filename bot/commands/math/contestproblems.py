@@ -29,7 +29,7 @@ class Contestproblems(commands.Cog):
             requested_year = str(year)
             requested_id = str(contest_id.upper())
             requested_problem = str(problem_num)
-            emojis = {"🇦":"a", "🇧":"b", "🇨":"c", "🇩":"d", "🇪":"e"}
+            emojis = {"🇦":"a", "🇧":"b", "🇨":"c", "🇩":"d", "🇪":"e", "❎":"quit"}
 
             tried = []
 
@@ -51,6 +51,10 @@ class Contestproblems(commands.Cog):
                     await ctx.send("Correct. You may want to check against this to get a better understanding")
                     await ctx.send(f'https://artofproblemsolving.com/wiki/index.php?title={requested_year}_AMC_{requested_id}_Problems/Problem_{requested_problem}')
                     break    
+                elif emojis[reaction.emoji] == "quit":
+                    await ctx.send("Sorry to see you go. Perhaps try taking a look at this question.")
+                    await ctx.send(f'https://artofproblemsolving.com/wiki/index.php?title={requested_year}_AMC_{requested_id}_Problems/Problem_{requested_problem}')
+                    break
                 else:
                     tried.append(user.id)
                     await ctx.send("Wrong. You may want to check against this go get a better understanding")
@@ -438,19 +442,20 @@ class Contestproblems(commands.Cog):
         await open_account(self, ctx.author)
         users = await get_points_data(self)
         user = ctx.author
-        last5_weighted = (last5weight*(int(users[str(user.id)]["last5"])))/(int(users[str(user.id)]["questions"]))
-        amc10_weighted = (amc10weight*(int(users[str(user.id)]["amc10"])))/(int(users[str(user.id)]["questions"]))
-        amc12_weighted = (amc12weight*(int(users[str(user.id)]["amc12"])))/int(users[str(user.id)]["questions"])
-        random_weighted = (randomweight*(int(users[str(user.id)]["randomq"]))/(int(users[str(user.id)]["questions"])))
+        last5_weighted = round((last5weight*(int(users[str(user.id)]["last5"])))/(int(users[str(user.id)]["questions"])), 2)
+        amc10_weighted = round((amc10weight*(int(users[str(user.id)]["amc10"])))/(int(users[str(user.id)]["questions"])), 2)
+        amc12_weighted = round((amc12weight*(int(users[str(user.id)]["amc12"])))/int(users[str(user.id)]["questions"]), 2)
+        random_weighted = round((randomweight*(int(users[str(user.id)]["randomq"]))/(int(users[str(user.id)]["questions"]))), 2)
 
         total_weighted_score = last5_weighted+amc10_weighted+amc12_weighted+random_weighted
+        final_score = round(total_weighted_score, 2)
 
         emb = discord.Embed(title=f"{ctx.author.name}'s points", color=discord.Color.blue())
-        emb.add_field(name="Last 5:", value=last5_weighted)
-        emb.add_field(name="AMC 10:", value=amc10_weighted)
-        emb.add_field(name="AMC 12:", value=amc12_weighted)
-        emb.add_field(name="Random:", value=random_weighted)
-        emb.add_field(name="Total Score:", value=total_weighted_score)
+        emb.add_field(name="Problems Solved", value=last5_weighted)
+        emb.add_field(name="Problems Failed", value=amc10_weighted)
+        emb.add_field(name="Score", value=f"AMC 10:```{amc10_weighted}```\nAMC 12:```{amc12_weighted}```\n")
+        emb.add_field(name="Rank", value=random_weighted)
+        emb.add_field(name="Total Score:", value=final_score)
         await ctx.send(embed=emb)
 
 async def open_account(self, user):
