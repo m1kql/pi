@@ -13,6 +13,8 @@ cogs = [
     'commands.code.rextester',
     'commands.math.contestproblems',
     'commands.utils.help',
+    'commands.utils.suggest',
+    'commands.utils.errors',
 ]
 
 for cog in cogs:
