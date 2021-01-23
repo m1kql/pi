@@ -62,12 +62,13 @@ class Contestproblems(commands.Cog):
                     break
     
     @commands.command()
-    async def fetchaime(self, ctx, year=None, problem_num=None):
-        if year!=None and problem_num !=None:
+    async def fetchaime(self, ctx, year=None, contest_version=None, problem_num=None):
+        if year!=None and  contest_version!=None and problem_num !=None:
             requested_year = str(year)
+            requested_version = str(contest_version)
             requested_problem = str(problem_num)
             try:
-                await ctx.send(f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AIME/{requested_year}/{requested_problem}/statement.png')
+                await ctx.send(f'https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AIME/{requested_year}/{requested_version}/{requested_problem}/statement.png')
             except:
                 await ctx.send("Sorry there was an error processing this command")
 
@@ -123,6 +124,7 @@ class Contestproblems(commands.Cog):
             if randomcontestid == "10A":
 
                 if emojis[reaction.emoji] == sol:
+                    users[str(user.id)]["amc10 questions"]+=1
                     users[str(user.id)]["last5"] += 6
                     users[str(user.id)]["questions"]+=1
                     with open("mathpoints.json", "w") as f:
@@ -138,6 +140,7 @@ class Contestproblems(commands.Cog):
 
                 else:
                     tried.append(user.id)
+                    users[str(user.id)]["amc10 questions"]+=1
                     users[str(user.id)]["last5"] -= 0
                     users[str(user.id)]["questions"]+=1
                     with open("mathpoints.json", "w") as f:
@@ -147,6 +150,7 @@ class Contestproblems(commands.Cog):
                     break
             else:
                 if emojis[reaction.emoji] == sol:
+                    users[str(user.id)]["amc12 questions"]+=1
                     users[str(user.id)]["last5"] += 6
                     users[str(user.id)]["questions"]+=1
                     with open("mathpoints.json", "w") as f:
@@ -162,6 +166,7 @@ class Contestproblems(commands.Cog):
 
                 else:
                     tried.append(user.id)
+                    users[str(user.id)]["amc12 questions"]+=1
                     users[str(user.id)]["last5"] -= 0
                     users[str(user.id)]["questions"]+=1
                     with open("mathpoints.json", "w") as f:
@@ -204,7 +209,7 @@ class Contestproblems(commands.Cog):
                 reaction, user = await self.bot.wait_for('reaction_add', check=check)
 
                 if emojis[reaction.emoji] == sol:
-
+                    users[str(user.id)]["amc10 questions"]+=1
                     users[str(user.id)]["amc10 points"] += 1
                     users[str(user.id)]["amc10 questions solved"]+=1
                     users[str(user.id)]["questions done"]+=1
@@ -222,7 +227,7 @@ class Contestproblems(commands.Cog):
                     break 
 
                 else:
-
+                    users[str(user.id)]["amc10 questions"]+=1
                     users[str(user.id)]["amc10 points"] -= 2
                     users[str(user.id)]["amc10 questions failed"]+=1
                     users[str(user.id)]["questions done"]+=1
@@ -251,7 +256,7 @@ class Contestproblems(commands.Cog):
                 reaction, user = await self.bot.wait_for('reaction_add', check=check)
 
                 if emojis[reaction.emoji] == sol:
-
+                    users[str(user.id)]["amc10 questions"]+=1
                     users[str(user.id)]["amc10 points"] += 4
                     users[str(user.id)]["amc10 questions solved"]+=1
                     users[str(user.id)]["questions done"]+=1
@@ -269,7 +274,7 @@ class Contestproblems(commands.Cog):
                     break 
 
                 else:
-
+                    users[str(user.id)]["amc10 questions"]+=1
                     users[str(user.id)]["amc10 points"] -= 1.5
                     users[str(user.id)]["amc10 questions failed"]+=1
                     users[str(user.id)]["questions done"]+=1
@@ -299,7 +304,7 @@ class Contestproblems(commands.Cog):
                 reaction, user = await self.bot.wait_for('reaction_add', check=check)
 
                 if emojis[reaction.emoji] == sol:
-                    
+                    users[str(user.id)]["amc10 questions"]+=1
                     users[str(user.id)]["amc10 points"] += 6
                     users[str(user.id)]["amc10 questions solved"]+=1
                     users[str(user.id)]["questions done"]+=1
@@ -317,7 +322,7 @@ class Contestproblems(commands.Cog):
                     break 
 
                 else:
-                    
+                    users[str(user.id)]["amc10 questions"]+=1
                     users[str(user.id)]["amc10 points"] -= 0.5
                     users[str(user.id)]["amc10 questions failed"]+=1
                     users[str(user.id)]["questions done"]+=1
@@ -363,7 +368,7 @@ class Contestproblems(commands.Cog):
                 reaction, user = await self.bot.wait_for('reaction_add', check=check)
 
                 if emojis[reaction.emoji] == sol:
-
+                    users[str(user.id)]["amc12 questions"]+=1
                     users[str(user.id)]["amc12 points"] += 4
                     users[str(user.id)]["amc12 questions solved"]+=1
                     users[str(user.id)]["questions done"]+=1
@@ -381,7 +386,7 @@ class Contestproblems(commands.Cog):
                     break 
 
                 else:
-
+                    users[str(user.id)]["amc12 questions"]+=1
                     users[str(user.id)]["amc12 points"] -= 1.5
                     users[str(user.id)]["amc12 questions failed"]+=1
                     users[str(user.id)]["questions done"]+=1
@@ -410,7 +415,7 @@ class Contestproblems(commands.Cog):
                 reaction, user = await self.bot.wait_for('reaction_add', check=check)
 
                 if emojis[reaction.emoji] == sol:
-                    
+                    users[str(user.id)]["amc12 questions"]+=1
                     users[str(user.id)]["amc12 points"] += 5.5
                     users[str(user.id)]["amc12 questions solved"]+=1
                     users[str(user.id)]["questions done"]+=1
@@ -428,7 +433,7 @@ class Contestproblems(commands.Cog):
                     break    
                 
                 else:
-
+                    users[str(user.id)]["amc12 questions"]+=1
                     users[str(user.id)]["amc12 points"] -= 0.5
                     users[str(user.id)]["amc12 questions failed"]+=1
                     users[str(user.id)]["questions done"]+=1
@@ -456,7 +461,7 @@ class Contestproblems(commands.Cog):
                 reaction, user = await self.bot.wait_for('reaction_add', check=check)
 
                 if emojis[reaction.emoji] == sol:
-                    
+                    users[str(user.id)]["amc12 questions"] += 1
                     users[str(user.id)]["amc12 points"] += 6
                     users[str(user.id)]["amc12 questions solved"]+=1
                     users[str(user.id)]["questions done"]+=1
@@ -474,6 +479,7 @@ class Contestproblems(commands.Cog):
                     break
 
                 else:
+                    users[str(user.id)]["amc12 questions"]+=1
                     users[str(user.id)]["amc12 points"] -= 0.5
                     users[str(user.id)]["amc12 questions failed"]+=1
                     users[str(user.id)]["questions done"]+=1
@@ -540,7 +546,6 @@ class Contestproblems(commands.Cog):
                         break
 
                     else:
-
                         users[str(user.id)]["random question points"] -= 0.5
                         users[str(user.id)]["amc10 questions failed"]+=1
                         users[str(user.id)]["questions failed"]+=1
@@ -562,7 +567,7 @@ class Contestproblems(commands.Cog):
 
                 else:
                     if emojis[reaction.emoji] == sol:
-
+                        users[str(user.id)]["amc12 questions"]+=1
                         users[str(user.id)]["random question points"] += 5.5
                         users[str(user.id)]["amc12 questions solved"]+=1
                         users[str(user.id)]["questions done"]+=1
@@ -580,7 +585,7 @@ class Contestproblems(commands.Cog):
                         break
 
                     else:
-
+                        users[str(user.id)]["amc12 questions"]+=1
                         users[str(user.id)]["random question points"] -= 0.5
                         users[str(user.id)]["amc12 questions failed"]+=1
                         users[str(user.id)]["questions failed"]+=1
