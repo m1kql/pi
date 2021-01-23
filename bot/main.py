@@ -13,6 +13,8 @@ cogs = [
     'commands.code.rextester',
     'commands.math.contestproblems',
     'commands.utils.help',
+    'commands.utils.suggest',
+    'commands.utils.errors',
 ]
 
 for cog in cogs:
@@ -26,7 +28,7 @@ async def on_ready():
     print('Bot is running')
     print(f'Logged in as {bot.user.name}')
     activity = discord.Activity(type=discord.ActivityType.playing, name="Type ^ for usage")
-    await bot.change_presence(status=discord.Status.idle, activity=activity)
+    await bot.change_presence(status=discord.Status.online, activity=activity)
 
 # load and unload cogs for modularity purposes 
 @bot.command()
