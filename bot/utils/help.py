@@ -17,6 +17,7 @@ class Help(commands.Cog):
             help_embed = discord.Embed(title="Help", description="All the relevant info", color=0xD6C18A)
             help_embed.add_field(name="```^```", value="The Prefix", inline=False)
             help_embed.add_field(name="```^help <command category>```", value="for more info on a specific category of commands and all the commands within it")
+            help_embed.add_field(name="```^suggestion <your suggestion>```", value="make a suggestion for the bot (do not abuse it, there is a cooldown)")
             await ctx.send(embed=help_embed)
             help_embed2 = discord.Embed(title="Help Pt.2", description="Avalible Categories", color=0xD6C18A)
             help_embed2.add_field(name="```math```", value="math category")
