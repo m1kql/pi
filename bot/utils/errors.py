@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 
+
 class Errors(commands.Cog):
 
     def __init__(self, bot):
@@ -24,8 +25,6 @@ class Errors(commands.Cog):
         elif isinstance(error.CheckFailure):
             await ctx.send("sorry, you lack the permissions to do this.")
         raise error
-
-
 
 
 def setup(bot):

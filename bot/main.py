@@ -23,14 +23,18 @@ for cog in cogs:
     except Exception as e:
         print(f'Could not load cog {cog}: {str(e)}')
 
+
 @bot.event
 async def on_ready():
     print('Bot is running')
     print(f'Logged in as {bot.user.name}')
-    activity = discord.Activity(type=discord.ActivityType.playing, name="Type ^ for usage")
+    activity = discord.Activity(
+        type=discord.ActivityType.playing, name="Type ^ for usage")
     await bot.change_presence(status=discord.Status.online, activity=activity)
 
-# load and unload cogs for modularity purposes 
+# load and unload cogs for modularity purposes
+
+
 @bot.command()
 @commands.is_owner()
 async def loadcog(ctx, cogname=None):
@@ -41,9 +45,10 @@ async def loadcog(ctx, cogname=None):
     except Exception as e:
         print(f'Could not load cog {cogname}: {str(e)}')
         await ctx.send(f'Could not load cog {cogname}: {str(e)}')
-    else: 
+    else:
         print(f'Loaded cog: {cogname} sucessfully')
         await ctx.send(f'Loaded cog: {cogname} sucessfully')
+
 
 @bot.command()
 @commands.is_owner()
@@ -55,9 +60,10 @@ async def unloadcog(ctx, cogname=None):
     except Exception as e:
         print(f'Could not unload cog {cogname}: {str(e)}')
         await ctx.send(f'Could not unload cog {cogname}: {str(e)}')
-    else: 
+    else:
         print(f'Unloaded cog: {cogname} sucessfully')
         await ctx.send(f'Unloaded cog: {cogname} sucessfully')
+
 
 @bot.command(aliases=["killswitch", "kill"])
 @commands.is_owner()
@@ -65,7 +71,7 @@ async def clearinstances(ctx):
     if ctx.message.author.id == int(os.getenv("myid")):
         print("called by owner, shutting down")
         await ctx.send("called by owner, shutting down")
-        try: 
+        try:
             await bot.logout()
             print("sucessfully disconnected")
         except:
@@ -75,4 +81,3 @@ async def clearinstances(ctx):
         await ctx.send("you don't own this bot")
 
 bot.run(token)
-

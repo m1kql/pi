@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 
+
 class Suggest(commands.Cog):
 
     def __init__(self, bot):
@@ -17,7 +18,6 @@ class Suggest(commands.Cog):
         with open('suggestions.txt', 'a') as f:
             f.write("from: " + user + " - message: " + msg+'\n')
         await ctx.send("Suggestion has been noted. Have a nice day.")
-
 
 
 def setup(bot):
