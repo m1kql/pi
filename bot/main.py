@@ -7,30 +7,32 @@ from dotenv import load_dotenv
 # basic settings
 load_dotenv()
 token = os.getenv("token")
-bot = commands.Bot(command_prefix="^", help_command=None)
+bot = commands.Bot(command_prefix="=", help_command=None)
 
 cogs = [
-    'commands.code.rextester',
-    'commands.math.contestproblems',
-    'commands.utils.help',
-    'commands.utils.suggest',
-    'commands.utils.errors',
+    "commands.code.rextester",
+    "commands.math.contestproblems",
+    "utils.help",
+    "utils.suggest",
+    "utils.errors",
 ]
 
 for cog in cogs:
     try:
         bot.load_extension(cog)
     except Exception as e:
-        print(f'Could not load cog {cog}: {str(e)}')
+        print(f"Could not load cog {cog}: {str(e)}")
 
 
 @bot.event
 async def on_ready():
-    print('Bot is running')
-    print(f'Logged in as {bot.user.name}')
+    print("Bot is running")
+    print(f"Logged in as {bot.user.name}")
     activity = discord.Activity(
-        type=discord.ActivityType.playing, name="Type ^ for usage")
+        type=discord.ActivityType.playing, name="Type = for usage"
+    )
     await bot.change_presence(status=discord.Status.online, activity=activity)
+
 
 # load and unload cogs for modularity purposes
 
@@ -43,11 +45,11 @@ async def loadcog(ctx, cogname=None):
     try:
         bot.load_extension(cogname)
     except Exception as e:
-        print(f'Could not load cog {cogname}: {str(e)}')
-        await ctx.send(f'Could not load cog {cogname}: {str(e)}')
+        print(f"Could not load cog {cogname}: {str(e)}")
+        await ctx.send(f"Could not load cog {cogname}: {str(e)}")
     else:
-        print(f'Loaded cog: {cogname} sucessfully')
-        await ctx.send(f'Loaded cog: {cogname} sucessfully')
+        print(f"Loaded cog: {cogname} sucessfully")
+        await ctx.send(f"Loaded cog: {cogname} sucessfully")
 
 
 @bot.command()
@@ -58,11 +60,11 @@ async def unloadcog(ctx, cogname=None):
     try:
         bot.unload_extension(cogname)
     except Exception as e:
-        print(f'Could not unload cog {cogname}: {str(e)}')
-        await ctx.send(f'Could not unload cog {cogname}: {str(e)}')
+        print(f"Could not unload cog {cogname}: {str(e)}")
+        await ctx.send(f"Could not unload cog {cogname}: {str(e)}")
     else:
-        print(f'Unloaded cog: {cogname} sucessfully')
-        await ctx.send(f'Unloaded cog: {cogname} sucessfully')
+        print(f"Unloaded cog: {cogname} sucessfully")
+        await ctx.send(f"Unloaded cog: {cogname} sucessfully")
 
 
 @bot.command(aliases=["killswitch", "kill"])
@@ -79,5 +81,6 @@ async def clearinstances(ctx):
             bot.clear()
     else:
         await ctx.send("you don't own this bot")
+
 
 bot.run(token)
