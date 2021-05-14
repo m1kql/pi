@@ -1,5 +1,7 @@
 # Pi Discord Bot
-![GitHub](https://img.shields.io/github/license/yak-fumblepack/pi?style=plastic) <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
+![GitHub](https://img.shields.io/github/license/yak-fumblepack/pi?style=flat)
+<a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
+<a href="https://discord.com/api/oauth2/authorize?client_id=842500814625832990&permissions=0&scope=bot"><img src="https://img.shields.io/badge/Invite-7289DA?style=flat&logo=discord&logoColor=white" alt="Invite bot to your discord server"></a>
 
 
 
