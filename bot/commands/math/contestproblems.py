@@ -104,6 +104,7 @@ class MathContest(commands.Cog):
                         json.dump(users, f)
                     break
                 elif emojis[reaction.emoji] == "quit":
+                    await ctx.send("You quit.")
                     users[str(user.id)]["questions done"] += 1
                     with open("mathpoints.json", "w") as f:
                         json.dump(users, f)
@@ -170,6 +171,7 @@ class MathContest(commands.Cog):
                         json.dump(users, f)
                     break
                 elif emojis[reaction.emoji] == "quit":
+                    await ctx.send("You quit.")
                     users[str(user.id)]["questions done"] += 1
                     users[str(user.id)]["amc10 questions"] += 1
                     with open("mathpoints.json", "w") as f:
@@ -227,6 +229,7 @@ class MathContest(commands.Cog):
                         json.dump(users, f)
                     break
                 elif emojis[reaction.emoji] == "quit":
+                    await ctx.send("You quit.")
                     users[str(user.id)]["questions done"] += 1
                     users[str(user.id)]["amc10 questions"] += 1
                     with open("mathpoints.json", "w") as f:
@@ -284,6 +287,7 @@ class MathContest(commands.Cog):
                         json.dump(users, f)
                     break
                 elif emojis[reaction.emoji] == "quit":
+                    await ctx.send("You quit.")
                     users[str(user.id)]["questions done"] += 1
                     users[str(user.id)]["amc10 questions"] += 1
                     with open("mathpoints.json", "w") as f:
@@ -357,6 +361,7 @@ class MathContest(commands.Cog):
                         json.dump(users, f)
                     break
                 elif emojis[reaction.emoji] == "quit":
+                    await ctx.send("You quit.")
                     users[str(user.id)]["questions done"] += 1
                     users[str(user.id)]["amc10 questions"] += 1
                     with open("mathpoints.json", "w") as f:
@@ -414,6 +419,7 @@ class MathContest(commands.Cog):
                         json.dump(users, f)
                     break
                 elif emojis[reaction.emoji] == "quit":
+                    await ctx.send("You quit.")
                     users[str(user.id)]["questions done"] += 1
                     users[str(user.id)]["amc10 questions"] += 1
                     with open("mathpoints.json", "w") as f:
@@ -471,6 +477,7 @@ class MathContest(commands.Cog):
                         json.dump(users, f)
                     break
                 elif emojis[reaction.emoji] == "quit":
+                    await ctx.send("You quit.")
                     users[str(user.id)]["questions done"] += 1
                     users[str(user.id)]["amc10 questions"] += 1
                     with open("mathpoints.json", "w") as f:
@@ -555,12 +562,14 @@ class MathContest(commands.Cog):
                         break
                 elif emojis[reaction.emoji] == "quit":
                     if amc_id == "10A" or amc_id == "10B":
+                        await ctx.send("You quit.")
                         users[str(user.id)]["questions done"] += 1
                         users[str(user.id)]["amc10 questions"] += 1
                         with open("mathpoints.json", "w") as f:
                             json.dump(users, f)
                         break
                     else:
+                        await ctx.send("You quit.")
                         users[str(user.id)]["questions done"] += 1
                         users[str(user.id)]["amc12 questions"] += 1
                         with open("mathpoints.json", "w") as f:
@@ -656,12 +665,14 @@ class MathContest(commands.Cog):
                         break
                 elif emojis[reaction.emoji] == "quit":
                     if amc_id == "10A" or amc_id == "10B":
+                        await ctx.send("You quit.")
                         users[str(user.id)]["questions done"] += 1
                         users[str(user.id)]["amc10 questions"] += 1
                         with open("mathpoints.json", "w") as f:
                             json.dump(users, f)
                         break
                     else:
+                        await ctx.send("You quit.")
                         users[str(user.id)]["questions done"] += 1
                         users[str(user.id)]["amc12 questions"] += 1
                         with open("mathpoints.json", "w") as f:

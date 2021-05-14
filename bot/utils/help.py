@@ -40,23 +40,8 @@ class Help(commands.Cog):
                 color=0xD6C18A,
             )
             math_embed.add_field(
-                name="```=fetchamc <year> <contest version> <problem number>```",
-                value="fetches any AIME problem from any given year",
-                inline=False,
-            )
-            math_embed.add_field(
-                name="```=fetchaime <year> <contest version> <problem number>```",
-                value="fetches any AIME problem from any given year",
-                inline=False,
-            )
-            math_embed.add_field(
-                name="```=fetchusamo <year> <problem number>```",
-                value="fetches any USAMO problem from any given year",
-                inline=False,
-            )
-            math_embed.add_field(
-                name="```=fetchusajmo <year> <problem number>```",
-                value="fetches any USAJMO problem from any given year",
+                name="```=fetch <contest> <year> <problem number>```",
+                value="fetches any problem from any given year. if you are fetching AMC problems, add the contest version.\nfor example: `=fetch <contest> <year> <contest version> <problem number>`",
                 inline=False,
             )
             await ctx.send(embed=math_embed)
