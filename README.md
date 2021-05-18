@@ -14,4 +14,4 @@
 ## Commands
 
 ## License
-This project is licensed under the [GNU AGPL-3.0](https://www.gnu.org/licenses/gpl-3.0.txt) license.
+This project is licensed under the [GNU AGPL-3.0](https://www.gnu.org/licenses/agpl-3.0.txt) license.
