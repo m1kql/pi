@@ -3,8 +3,7 @@
 This is for building the bot **only**:
 
 ```shell
-$ git clone git@github.com:yak-fumblepack/pi.git
-$ cd bot/src/
-$ sudo docker run -e token=<your bot token here with no spaces> -d pi-bot:latest 
+$ sudo docker pull yakfumblepack/pi
+$ sudo docker run --env token=<your token without spaces and without the arrow brackets> --detach yakfumblepack/pi:latest
 ```
 Your bot should be online and ready to respond to commands.
