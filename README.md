@@ -1,5 +1,8 @@
 <div align="center">
-  <h1>Pi</h1>
+  <img src="./Pi.png" alt="" width="256">
+  <br>
+  <img src="https://img.shields.io/github/license/yak-fumblepack/pi?style=plastic" alt="">
+  <img src="https://img.shields.io/badge/code%20style-black-000000.svg?style=plastic" alt="">
 </div>
 
 ## Overview
