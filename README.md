@@ -48,7 +48,7 @@ $ pip install -U -r requirements.txt
 Add your token to the environmental variable file (`.env`). Make sure you are in the project's root directory.
 
 ```shell
-$ touch .env && echo "token=<your token without spaces and without the arrow brackets>" >> .env
+$ echo "token=<your token without spaces and without the arrow brackets>" > .env
 ```
 
 Change directory and run the bot.
