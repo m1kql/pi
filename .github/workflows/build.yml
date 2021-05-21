@@ -26,5 +26,5 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Build using docker compose
         run: |
-          pwd
-          sudo docker-compose up --build
+          echo ${{ secrets.bot_token }} > .env
+          docker-compose up --build
