@@ -31,4 +31,4 @@ jobs:
           docker-compose up --build -d
       - name: Stop containers
         if: always()
-        run: docker-compose down -rmi
+        run: docker-compose down --rmi all
