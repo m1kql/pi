@@ -1,6 +1,7 @@
 <div align="center">
   <img src="./Pi.png" alt="" width="256">
   <br>
+  <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/yak-fumblepack/pi/Build?style=plastic">
   <img src="https://img.shields.io/github/license/yak-fumblepack/pi?style=plastic" alt="">
   <img src="https://img.shields.io/badge/code%20style-black-000000.svg?style=plastic" alt="">
 </div>
