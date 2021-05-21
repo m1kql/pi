@@ -11,6 +11,7 @@ on:
 
 jobs:
   build-docker:
+    timeout-minutes: 8
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
@@ -24,7 +25,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install flake8 black
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-      - name: Build using docker compose
+      - name: Start containers using docker compose
         run: |
           echo ${{ secrets.bot_token }} > .env
-          docker-compose up --build
+          docker-compose up --build -d
+      - name: Stop containers
+        if: always()
+        run: docker-compose down -rmi
