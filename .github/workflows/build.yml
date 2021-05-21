@@ -1,9 +1,16 @@
-name: Lint
+name: Build
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - rewrite
+  pull_request:
+    branches:
+      - rewrite
+    types: [closed]
 
 jobs:
-  lint:
+  build-docker:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
@@ -17,7 +24,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install flake8 black
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-      - name: Lint with flake8
+      - name: Build using docker compose
         run: |
-          flake8 . --statistics --show-source
-          black .
+          pwd
+          sudo docker-compose up --build
