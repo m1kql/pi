@@ -18,8 +18,10 @@ async def on_ready():
     )
     await bot.change_presence(status=discord.Status.online, activity=activity)
 
+
 @bot.command()
 async def hello(ctx):
     await ctx.send("Hello, World!")
+
 
 bot.run(token)
