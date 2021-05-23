@@ -1,7 +1,13 @@
 import discord
 from discord.ext import commands
 from firebase_admin import firestore
-from ..utility.db import db, open_user_db, questions_attempted, questions_failed, questions_solved
+from ..utility.db import (
+    db,
+    open_user_db,
+    questions_attempted,
+    questions_failed,
+    questions_solved,
+)
 import firebase_admin
 import requests
 
@@ -24,11 +30,12 @@ amc10_points_amount = 1
 amc12_points_amount = 1
 amc12_weight = 0.75
 amc10_weight = 0.25
-amc10_id = ["10A","10B"]
-amc12_id = ["12A","12B"]
+amc10_id = ["10A", "10B"]
+amc12_id = ["12A", "12B"]
 amc_id = ["10A", "10B", "12A", "12B"]
 aime_id = ["1", "2"]
 reactions = {"🇦": "a", "🇧": "b", "🇨": "c", "🇩": "d", "🇪": "e", "❎": "quit"}
+
 
 class ContestProblems(commands.Cog):
     def __init__(self, bot):
@@ -46,7 +53,9 @@ class ContestProblems(commands.Cog):
         user = ctx.author
         await open_user_db(user_guild_id, user_id)
         if args != None:
-            user_collection_ref = db.collection(str(user_guild_id)).document(str(user_id))
+            user_collection_ref = db.collection(str(user_guild_id)).document(
+                str(user_id)
+            )
             requested_path = args.upper().replace(" ", "/")
 
             tried = []
@@ -72,31 +81,46 @@ class ContestProblems(commands.Cog):
             while True:
                 for emoji in reactions:
                     await question.add_reaction(emoji)
-                reaction, user = await self.bot.wait_for("reaction_add", check=check_answer)
+                reaction, user = await self.bot.wait_for(
+                    "reaction_add", check=check_answer
+                )
 
                 if reactions[reaction.emoji] == sol:
                     await ctx.send("Correct.")
-                    user_collection_ref.update({
-                        questions_solved: firestore.Increment(questions_solved_amount),
-                        questions_attempted: firestore.Increment(questions_solved_amount)
-                    })
+                    user_collection_ref.update(
+                        {
+                            questions_solved: firestore.Increment(
+                                questions_solved_amount
+                            ),
+                            questions_attempted: firestore.Increment(
+                                questions_solved_amount
+                            ),
+                        }
+                    )
                     break
                 elif reactions[reaction.emoji] == "quit":
                     await ctx.send("You quit.")
-                    user_collection_ref.update({
-                        questions_attempted: firestore.Increment(questions_solved_amount)
-                    })
+                    user_collection_ref.update(
+                        {
+                            questions_attempted: firestore.Increment(
+                                questions_solved_amount
+                            )
+                        }
+                    )
                     break
                 else:
                     await ctx.send("Wrong")
-                    user_collection_ref.update({
-                        questions_failed: firestore.Increment(questions_solved_amount),
-                        questions_attempted: firestore.Increment(questions_solved_amount)
-                    })
+                    user_collection_ref.update(
+                        {
+                            questions_failed: firestore.Increment(
+                                questions_solved_amount
+                            ),
+                            questions_attempted: firestore.Increment(
+                                questions_solved_amount
+                            ),
+                        }
+                    )
                     break
-
-
-
 
 
 def setup(bot):

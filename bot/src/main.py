@@ -10,7 +10,14 @@ bot = commands.Bot(command_prefix="=", intents=intents, help_command=None)
 load_dotenv()
 token = os.getenv("token")
 
-cogs = ["cogs.math.latex", "cogs.math.contest_problems", "cogs.math.stats", "cogs.misc.help", "cogs.misc.info", "cogs.misc.report"]
+cogs = [
+    "cogs.math.latex",
+    "cogs.math.contest_problems",
+    "cogs.math.stats",
+    "cogs.misc.help",
+    "cogs.misc.info",
+    "cogs.misc.report",
+]
 
 
 @bot.event

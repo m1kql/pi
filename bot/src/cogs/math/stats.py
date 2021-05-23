@@ -1,6 +1,12 @@
 import discord
 from discord.ext import commands
-from ..utility.db import db, get_user_db, questions_attempted, questions_failed, questions_solved
+from ..utility.db import (
+    db,
+    get_user_db,
+    questions_attempted,
+    questions_failed,
+    questions_solved,
+)
 import firebase_admin
 
 # statistics help
@@ -45,21 +51,23 @@ class Stats(commands.Cog):
 
         # embed
         statistics_embed = discord.Embed(
-            title=f"{user_object.name}'s Statistics",
-            color=0xA4D0DA
+            title=f"{user_object.name}'s Statistics", color=0xA4D0DA
         )
         statistics_embed.set_thumbnail(url=user_object.avatar_url)
         statistics_embed.set_footer(
             text="Such scores and points are not indicative of a user's skill level or aptitude in mathematics or logical reasoning."
         )
         statistics_embed.add_field(
-            name="Questions solved", value=f"Total solved: `{user_data_dict.get(questions_solved)}`"
+            name="Questions solved",
+            value=f"Total solved: `{user_data_dict.get(questions_solved)}`",
         )
         statistics_embed.add_field(
-            name="Questions attempted", value=f"Total attempted: `{user_data_dict.get(questions_attempted)}`"
+            name="Questions attempted",
+            value=f"Total attempted: `{user_data_dict.get(questions_attempted)}`",
         )
         statistics_embed.add_field(
-            name="Questions failed", value=f"Total failed: `{user_data_dict.get(questions_failed)}`"
+            name="Questions failed",
+            value=f"Total failed: `{user_data_dict.get(questions_failed)}`",
         )
 
         await ctx.send(embed=statistics_embed)
