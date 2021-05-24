@@ -58,29 +58,47 @@ $ cd bot/src/
 $ python main.py
 ```
 
-Have fun!
-
 ### Docker
 
 Prerequisites:
 - Docker
 - Docker Compose
 
-To run both the bot:
+To run the bot:
 
 ```shell
-$ sudo docker pull yakfumblepack/pi
+$ git clone https://github.com/yak-fumblepack/pi.git
+$ git checkout docker
 $ sudo docker-compose up --build
 ```
 
-Running it from the git repo:
+Or if you don't have docker compose, build the image and run it. For more info, refer to their respective readmes:
+- [The bot](https://github.com/yak-fumblepack/pi/tree/rewrite/bot)
 
-```shell
-$ sudo docker-compose up --build pi-bot
+
+### Setup 
+
+This bot uses firebase as the database service. 
+
+Set up the `.env` like so (if you would like to run it using firebase):
+
+```
+token=<your token>
+bug_channel=<channel id>
+feature_channel=<channel id>
+firebase_type=
+firebase_project_id=
+firebase_private_key_id=
+firebase_private_key=
+firebase_client_email=
+firebase_client_id=
+firebase_auth_uri=
+firebase_token_uri=
+firebase_auth_provider_x509_cert_url=
+firebase_client_x509_cert_url=
 ```
 
-To run them invididually using separate images, refer to their respective readmes:
-- [The bot](https://github.com/yak-fumblepack/pi/tree/rewrite/bot)
+Rememeber to omit the < >. There is no space as well.
 
 ## Commands
 
