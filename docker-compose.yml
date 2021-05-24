@@ -1,0 +1,7 @@
+version: "3"
+
+services:
+    pi-bot:
+      build: bot/src
+      env_file: 
+        - .env

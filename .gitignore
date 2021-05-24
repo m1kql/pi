@@ -4,6 +4,9 @@ pip-log.txt
 local_settings.py
 db.sqlite3
 .env
+.env.dev
+.env.prod
+.env.ci
 .venv
 env/
 venv/
@@ -11,3 +14,4 @@ ENV/
 env.bak/
 venv.bak/
 .mypy_cache/
+firebase_config.json
