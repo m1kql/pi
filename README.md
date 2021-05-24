@@ -69,7 +69,6 @@ To run the bot:
 
 ```shell
 $ git clone https://github.com/yak-fumblepack/pi.git
-$ git checkout docker
 $ sudo docker-compose up --build
 ```
 
@@ -103,19 +102,46 @@ Rememeber to omit the < >. There is no space as well.
 
 ## Commands
 
-Default prefix: `=`
+Prefix: `=`
 
 <u>Basic Commands</u>
 <br>
-| Command | Has parameters | Expected Output |
-| --- | --- | --- | 
-| `=hello` | No | `Hello, World!` |
+| Command | Has Arguments | Arguments | Expected Output |
+| --- | --- | --- | --- |
+| `=hello` | No |  | `Hello, World!` |
+| `=help` | Yes | `bot`, `math`, `misc` | An embed showing the arguments you can pass to it to learn more about the other commands |
+
+<u>Bot</u>
+<br>
+| Command | Has Arguments | Arguments | Expected Output |
+| --- | --- | --- | --- |
+| `=invite` | No |  | Gives invite links to the support server and for the bot |
+| `=info` | No |  | Gives info about this bot and other other techinical information |
+
+<u>Math</u>
+<br>
+| Command | Has Arguments | Arguments | Expected Output |
+| --- | --- | --- | --- |
+| `=statistics` | Yes | `@user`, `user_id` | Gives an embed showing your statistics (if you leave the arguments blank) or someone else's statistics |
+| `=tex` | Yes | `tex statement` | Returns a rendered LaTeX statement |
+| `=amc10` | Yes | `easy`, `medium`, `hard` | Gives an AMC10 problem of the selected difficulty |
+| `=amc12` | Yes | `easy`, `medium`, `hard` | Gives an AMC12 problem of the selected difficulty |
+| `=fetch` | Yes | `contest_name year [contest id, optional] problem_number` | Fetches a problem from the specified path |
+| `=last5` | Yes | `contest_name` | Returns the last 5 questions from a specified contest |
+| `=random` | No |  | Returns a random problem |
+
+<u>Miscellaneous</u>
+<br>
+| Command | Has Arguments | Arguments | Expected Output |
+| --- | --- | --- | --- |
+| `=suggest` | Yes | `your message` | Allows you to make a feature suggestion or any suggestion. Needs you to complete a captcha |
+| `=report` | Yes | `your message` | Allows you to make a bug report or any report on an issue. Needs you to complete a captcha |
 
 ## Contributing
 
-Features, bugfixes, issues are all greatly appreciated. Please, if you do encounter a bug report it to us by opening an issue or even better, fix it yourself and make a pull request!
+Features, bugfixes, issues are all greatly appreciated. Please, if you do encounter a bug, report it to us by opening an issue or even better, fix it yourself and make a pull request! 
 
-Note: Since we are undergoing a rewrite, please make pull requests against the `rewrite` branch of this repo.
+Please open a pull request or an issue on the `dev` branch.
 
 ## License
 This project is licensed under the [GNU AGPL-3.0](https://www.gnu.org/licenses/agpl-3.0.txt) license.

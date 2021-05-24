@@ -206,6 +206,7 @@ class Help(commands.Cog):
                 help_embed.set_footer(
                     text="For more info on each of the commands, type `=help <command name>`"  # noqa E501
                 )
+                await ctx.send(embed=help_embed)
             elif ("misc" or "miscellaneous") in args.lower():
                 help_embed = discord.Embed(
                     title="Miscellaneous commands",
