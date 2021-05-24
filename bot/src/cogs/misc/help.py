@@ -59,7 +59,11 @@ class Help(commands.Cog):
                 )
                 help_embed.set_footer(text=f"{fetch_help.get('footer')}")
                 await ctx.send(embed=help_embed)
-            elif "leaderboard" in args.lower() or "lb" in args.lower() or "rank" in args.lower():
+            elif (
+                "leaderboard" in args.lower()
+                or "lb" in args.lower()
+                or "rank" in args.lower()
+            ):
                 help_embed = discord.Embed(
                     title=f"{leaderboard_help.get('name')}", color=0xA4D0DA
                 )

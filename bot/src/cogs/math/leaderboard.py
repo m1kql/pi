@@ -41,28 +41,34 @@ class Leaderboard(commands.Cog):
             if points is None:
                 points = 0
                 leaderboard.append((user.name, points))
-            else:    
+            else:
                 leaderboard.append((user.name, points))
 
-        
         print(leaderboard)
-        sorted_leaderboard = sorted(leaderboard, key=lambda x: (x[1], x[1]), reverse=True)
+        sorted_leaderboard = sorted(
+            leaderboard, key=lambda x: (x[1], x[1]), reverse=True
+        )
         print(sorted_leaderboard)
-        
+
         sorted_names = [i[0] for i in sorted_leaderboard]
         sorted_scores = [i[1] for i in sorted_leaderboard]
         sorted_amount = len([i[1] for i in sorted_leaderboard])
 
         description_string = ""
         for i in range(sorted_amount):
-            description_string += f"**{sorted_names[i]}** - `{sorted_scores[i]}` points\n"
+            description_string += (
+                f"**{sorted_names[i]}** - `{sorted_scores[i]}` points\n"
+            )
 
         # embed
         leaderboard_embed = discord.Embed(
-            title=f"Leaderboard for guild: `{ctx.guild.name}`", color=0xA4D0DA,
-            description = description_string
+            title=f"Leaderboard for guild: `{ctx.guild.name}`",
+            color=0xA4D0DA,
+            description=description_string,
         )
-        leaderboard_embed.set_footer(text="Such scores are not indicative of a user's skill level or aptitude in mathematics or logical reasoning.")
+        leaderboard_embed.set_footer(
+            text="Such scores are not indicative of a user's skill level or aptitude in mathematics or logical reasoning."
+        )
         leaderboard_embed.set_thumbnail(url=ctx.guild.icon_url)
         await ctx.send(embed=leaderboard_embed)
 

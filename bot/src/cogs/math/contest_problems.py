@@ -488,7 +488,7 @@ class ContestProblems(commands.Cog):
                     )
                     break
 
-    @commands.command()
+    @commands.command(aliases=["rnd"])
     async def random(self, ctx):
         user_guild_id = ctx.guild.id
         user_id = ctx.author.id
