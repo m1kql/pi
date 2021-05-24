@@ -12,6 +12,8 @@ token = os.getenv("token")
 
 cogs = [
     "cogs.math.latex",
+    "cogs.math.amc10_problems",
+    "cogs.math.amc12_problems",
     "cogs.math.contest_problems",
     "cogs.math.stats",
     "cogs.misc.help",
@@ -36,11 +38,12 @@ for cog in cogs:
     except Exception as e:
         print(f"Could not load cog {cog}: {str(e)}")
 
+
 # load and unload cogs for modularity purposes
 @bot.command()
 @commands.is_owner()
 async def loadcog(ctx, cogname=None):
-    if cogname == None:
+    if cogname is None:
         return
     try:
         bot.load_extension(cogname)
@@ -55,7 +58,7 @@ async def loadcog(ctx, cogname=None):
 @bot.command()
 @commands.is_owner()
 async def unloadcog(ctx, cogname=None):
-    if cogname == None:
+    if cogname is None:
         return
     try:
         bot.unload_extension(cogname)
