@@ -66,26 +66,21 @@ Prerequisites:
 - Docker
 - Docker Compose
 
-To run both the bot and the flask backend:
+To run both the bot:
 
 ```shell
 $ sudo docker pull yakfumblepack/pi
 $ sudo docker-compose up --build
 ```
 
-Running them individually:
+Running it from the git repo:
 
 ```shell
 $ sudo docker-compose up --build pi-bot
 ```
 
-```shell
-$ sudo docker-compose up --build pi-site
-```
-
 To run them invididually using separate images, refer to their respective readmes:
 - [The bot](https://github.com/yak-fumblepack/pi/tree/rewrite/bot)
-- [The flask backend]()
 
 ## Commands
 
