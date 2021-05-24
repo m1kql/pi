@@ -1,21 +1,36 @@
 import os
-
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 
-# basic settings
+intents = discord.Intents.default()
+intents.members = True
+bot = commands.Bot(command_prefix="=", intents=intents, help_command=None)
+
 load_dotenv()
 token = os.getenv("token")
-bot = commands.Bot(command_prefix="=", help_command=None)
 
 cogs = [
-    "commands.code.rextester",
-    "commands.math.contestproblems",
-    "utils.help",
-    "utils.suggest",
-    "utils.errors",
+    "cogs.math.latex",
+    "cogs.math.amc10_problems",
+    "cogs.math.amc12_problems",
+    "cogs.math.contest_problems",
+    "cogs.math.stats",
+    "cogs.misc.help",
+    "cogs.misc.info",
+    "cogs.misc.report",
 ]
+
+
+@bot.event
+async def on_ready():
+    print("Hello World!")
+    print(f"Username: {bot.user.name} | Logged in successfully")
+    activity = discord.Activity(
+        type=discord.ActivityType.playing, name="Type =help for usage"
+    )
+    await bot.change_presence(status=discord.Status.online, activity=activity)
+
 
 for cog in cogs:
     try:
@@ -24,23 +39,11 @@ for cog in cogs:
         print(f"Could not load cog {cog}: {str(e)}")
 
 
-@bot.event
-async def on_ready():
-    print("Bot is running")
-    print(f"Logged in as {bot.user.name}")
-    activity = discord.Activity(
-        type=discord.ActivityType.playing, name="Type = for usage"
-    )
-    await bot.change_presence(status=discord.Status.online, activity=activity)
-
-
 # load and unload cogs for modularity purposes
-
-
 @bot.command()
 @commands.is_owner()
 async def loadcog(ctx, cogname=None):
-    if cogname == None:
+    if cogname is None:
         return
     try:
         bot.load_extension(cogname)
@@ -55,7 +58,7 @@ async def loadcog(ctx, cogname=None):
 @bot.command()
 @commands.is_owner()
 async def unloadcog(ctx, cogname=None):
-    if cogname == None:
+    if cogname is None:
         return
     try:
         bot.unload_extension(cogname)
@@ -67,20 +70,9 @@ async def unloadcog(ctx, cogname=None):
         await ctx.send(f"Unloaded cog: {cogname} sucessfully")
 
 
-@bot.command(aliases=["killswitch", "kill"])
-@commands.is_owner()
-async def clearinstances(ctx):
-    if ctx.message.author.id == int(os.getenv("myid")):
-        print("called by owner, shutting down")
-        await ctx.send("called by owner, shutting down")
-        try:
-            await bot.logout()
-            print("sucessfully disconnected")
-        except:
-            print("EnvironmentError")
-            bot.clear()
-    else:
-        await ctx.send("you don't own this bot")
+@bot.command()
+async def hello(ctx):
+    await ctx.send("Hello, World!")
 
 
 bot.run(token)
