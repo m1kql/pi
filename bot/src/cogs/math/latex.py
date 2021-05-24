@@ -34,7 +34,7 @@ class LaTeX(commands.Cog):
         *,
         tex=None,
     ):
-        if tex != None:
+        if tex is not None:
             formatted_tex = tex.strip().replace(" ", "%20")
             target_url = f"https://latex.codecogs.com/png.latex?\\dpi{{300}}\\bg_black%20{formatted_tex}"
             urllib.request.urlretrieve(target_url, "latex.png")
