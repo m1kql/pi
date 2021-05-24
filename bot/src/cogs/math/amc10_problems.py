@@ -45,14 +45,14 @@ amc10_help = {
 }
 
 
-class ContestProblems(commands.Cog):
+class AMC10(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
     # displays ready message on load
     @commands.Cog.listener()
     async def on_ready(self):
-        print("Contest problems cog has been loaded sucessfully")
+        print("AMC10 cog has been loaded sucessfully")
 
     @commands.command()
     async def amc10(self, ctx, difficulty):
@@ -71,7 +71,7 @@ class ContestProblems(commands.Cog):
                 and user.id not in tried
             )
 
-        if difficulty.lower() == ("e" or "easy"):
+        if difficulty.lower() == "e" or difficulty.lower() == "easy":
             while True:
                 randomyear = str(random.randint(2002, 2019))
                 amc_easy = str(random.randint(1, 10))
@@ -157,7 +157,7 @@ class ContestProblems(commands.Cog):
                     )
                     break
 
-        if difficulty.lower() == ("med" or "medium"):
+        if difficulty.lower() == "medium" or difficulty.lower() == "med":
             while True:
                 randomyear = str(random.randint(2002, 2019))
                 amc_med = str(random.randint(11, 16))
@@ -241,7 +241,7 @@ class ContestProblems(commands.Cog):
                     )
                     break
 
-        if difficulty.lower() == ("hard" or "h"):
+        if difficulty.lower() == "h" or difficulty.lower() == "hard":
             while True:
                 randomyear = str(random.randint(2002, 2019))
                 amc_hard = str(random.randint(17, 25))
@@ -329,4 +329,4 @@ class ContestProblems(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(ContestProblems(bot))
+    bot.add_cog(AMC10(bot))

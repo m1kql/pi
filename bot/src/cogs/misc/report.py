@@ -53,8 +53,8 @@ captchas = [
 ]
 
 load_dotenv()
-bug_channel = int(os.getenv("bug_channel"))
-feature_channel = int(os.getenv("feature_channel"))
+bug_channel = os.getenv("bug_channel")
+feature_channel = os.getenv("feature_channel")
 
 
 class Report(commands.Cog):
