@@ -4,6 +4,7 @@ from discord.ext import commands
 from ..math.latex import latex_help
 from ..math.stats import statistics_help
 from ..math.amc10_problems import amc10_help
+from ..math.leaderboard import leaderboard_help
 from ..math.contest_problems import fetch_help, last5_help, random_help
 from ..math.amc12_problems import amc12_help
 from ..misc.report import suggest_help, report_help
@@ -25,7 +26,7 @@ class Help(commands.Cog):
             if "math" in args.lower():
                 help_embed = discord.Embed(
                     title="Math commands",
-                    description="`=statistics`,`=tex`,`=amc10`,`=amc12`, `=fetch`, `=last5`, `=random`",
+                    description="`=statistics`,`=tex`,`=amc10`,`=amc12`, `=fetch`, `=last5`, `=random`, `=leaderboard`",
                     color=0xA4D0DA,
                 )
                 help_embed.set_footer(
@@ -57,6 +58,32 @@ class Help(commands.Cog):
                     inline=False,
                 )
                 help_embed.set_footer(text=f"{fetch_help.get('footer')}")
+                await ctx.send(embed=help_embed)
+            elif "leaderboard" in args.lower() or "lb" in args.lower() or "rank" in args.lower():
+                help_embed = discord.Embed(
+                    title=f"{leaderboard_help.get('name')}", color=0xA4D0DA
+                )
+                help_embed.add_field(
+                    name=f"{leaderboard_help.get('description_name')}",
+                    value=f"{leaderboard_help.get('description')}",
+                    inline=False,
+                )
+                help_embed.add_field(
+                    name=f"{leaderboard_help.get('usage_name')}",
+                    value=f"{leaderboard_help.get('usage_description')}",
+                    inline=False,
+                )
+                help_embed.add_field(
+                    name=f"{leaderboard_help.get('alias_name')}",
+                    value=f"{leaderboard_help.get('alias_description')}",
+                    inline=False,
+                )
+                help_embed.add_field(
+                    name=f"{leaderboard_help.get('usage_syntax_name')}",
+                    value=f"{leaderboard_help.get('usage_syntax')}",
+                    inline=False,
+                )
+                help_embed.set_footer(text=f"{leaderboard_help.get('footer')}")
                 await ctx.send(embed=help_embed)
             elif "amc10" in args.lower():
                 help_embed = discord.Embed(
@@ -167,11 +194,18 @@ class Help(commands.Cog):
                 help_embed.set_footer(text=f"{random_help.get('footer')}")
                 await ctx.send(embed=help_embed)
             elif "bot" in args.lower():
-                pass
+                help_embed = discord.Embed(
+                    title="Bot commands",
+                    description="`=info`, `=invite`",
+                    color=0xA4D0DA,
+                )
+                help_embed.set_footer(
+                    text="For more info on each of the commands, type `=help <command name>`"  # noqa E501
+                )
             elif ("misc" or "miscellaneous") in args.lower():
                 help_embed = discord.Embed(
                     title="Miscellaneous commands",
-                    description="`=info`, `=invite`, `=suggest`, `=report`",
+                    description="`=suggest`, `=report`",
                     color=0xA4D0DA,
                 )
                 help_embed.set_footer(

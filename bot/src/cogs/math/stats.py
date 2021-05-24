@@ -2,9 +2,11 @@ import math
 
 import discord
 from discord.ext import commands
+from firebase_admin import firestore
 
 from ..math.contest_problems import amc10_weight, amc12_weight
 from ..utility.db import (
+    db,
     aime_attempted,
     amc10_attempted,
     amc10_failed,
@@ -13,11 +15,13 @@ from ..utility.db import (
     amc12_failed,
     amc12_solved,
     get_user_db,
+    open_user_db,
     questions_attempted,
     questions_failed,
     questions_solved,
     usajmo_attempted,
     usamo_attempted,
+    total_weighted_points_string,
 )
 
 # statistics help
@@ -56,9 +60,8 @@ class Stats(commands.Cog):
 
         user_guild_id = ctx.guild.id
 
+        await open_user_db(user_guild_id, user_id)
         user_data_dict = await get_user_db(user_guild_id, user_id)
-
-        user_object = self.bot.get_user(user_id)
 
         total_unweighted_points = (
             user_data_dict["amc10_points"] + user_data_dict["amc12_points"]
@@ -66,6 +69,13 @@ class Stats(commands.Cog):
         total_weighted_points = (
             float(user_data_dict["amc10_points"]) * amc10_weight
         ) + (float(user_data_dict["amc10_points"]) * amc12_weight)
+        user_collection_ref = db.collection(str(user_guild_id)).document(str(user_id))
+
+        user_collection_ref.update(
+            {total_weighted_points_string: firestore.Increment(total_weighted_points)}
+        )
+
+        user_object = self.bot.get_user(user_id)
 
         # embed
         statistics_embed = discord.Embed(

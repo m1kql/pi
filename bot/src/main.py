@@ -15,6 +15,7 @@ cogs = [
     "cogs.math.amc10_problems",
     "cogs.math.amc12_problems",
     "cogs.math.contest_problems",
+    "cogs.math.leaderboard",
     "cogs.math.stats",
     "cogs.misc.help",
     "cogs.misc.info",

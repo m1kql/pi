@@ -4,6 +4,7 @@
   <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/yak-fumblepack/pi/Build?style=plastic">
   <img src="https://img.shields.io/github/license/yak-fumblepack/pi?style=plastic" alt="">
   <img src="https://img.shields.io/badge/code%20style-black-000000.svg?style=plastic" alt="">
+  <a href="https://discord.com/api/oauth2/authorize?client_id=842500814625832990&permissions=0&scope=bot"><img src="https://img.shields.io/badge/Invite-7289DA?style=plastic&logo=discord&logoColor=white" alt="Invite the bot to your discord server"></a>
 </div>
 
 ## Overview

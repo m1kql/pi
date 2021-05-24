@@ -3,10 +3,10 @@ name: Build
 on:
   push:
     branches:
-      - rewrite
+      - master
   pull_request:
     branches:
-      - rewrite
+      - dev
     types: [closed]
 
 jobs:

@@ -89,6 +89,7 @@ usamo_attempted = "usamo_fetched"
 usajmo_attempted = "usajmo_fetched"
 amc10_points = "amc10_points"
 amc12_points = "amc12_points"
+total_weighted_points_string = "total_weighted_points"
 
 
 async def open_user_db(guild_id, user_id):
