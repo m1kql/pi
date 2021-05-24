@@ -1,4 +1,3 @@
-from PIL.Image import Image
 import discord
 from discord.ext import commands
 from captcha.image import ImageCaptcha
@@ -24,7 +23,7 @@ suggest_help = {
 report_help = {
     "name": "=report help info",
     "description_name": "Description",
-    "description": "Get the report link",
+    "description": "Report a bug, or something that's not going right with the bot.",
     "usage_name": "Usage",
     "usage_description": "`=report <an issue with this bot>`",
     "alias_name": "Aliases",
@@ -68,54 +67,74 @@ class Report(commands.Cog):
         print("Report cog has been loaded sucessfully")
 
     @commands.command()
+    @commands.cooldown(2, 43200, commands.BucketType.user)
     async def suggest(self, ctx, *, message):
         random_captcha = random.randint(0, 17)
         image_dimensions = ImageCaptcha(width=280, height=90)
-        data = image_dimensions.generate(captchas[random_captcha])
+        data = image_dimensions.generate(captchas[random_captcha])  # noqa F841
         image_dimensions.write(
             str(captchas[random_captcha]), "bot/src/cogs/misc/captcha.png"
         )
         captcha_answer = str(captchas[random_captcha])
         await ctx.send(file=discord.File("bot/src/cogs/misc/captcha.png"))
 
-        async def check_answer(answer):
-            if answer.content == captcha_answer and answer.author == ctx.author:
+        def check_answer(answer):
+            a_msg = answer.content
+            a_author = answer.author
+            if a_msg == captcha_answer and a_author == ctx.author:
                 return True
             else:
                 return False
 
-        answer = await self.bot.wait_for("message", check=check_answer)
+        answer = await self.bot.wait_for("message", check=check_answer)  # noqa F841
         channel = await self.bot.fetch_channel(feature_channel)
         await ctx.send("Correct CAPTCHA submission.")
         await channel.send(
-            f"Suggestion from: `{ctx.author.name}` with id: `{ctx.author.id}`\nMessage:\n```{message}```"
+            f"Suggestion from: `{ctx.author.name}` with id: `{ctx.author.id}`\nMessage:\n```{message}```"  # noqa E501
         )
         await ctx.send("Successfully sent your suggestion! Have a nice day.")
 
     @commands.command()
+    @commands.cooldown(2, 43200, commands.BucketType.user)
     async def report(self, ctx, *, message):
         random_captcha = random.randint(0, 17)
         image_dimensions = ImageCaptcha(width=280, height=90)
-        data = image_dimensions.generate(captchas[random_captcha])
+        data = image_dimensions.generate(captchas[random_captcha])  # noqa F841
         image_dimensions.write(
             str(captchas[random_captcha]), "bot/src/cogs/misc/captcha.png"
         )
         captcha_answer = str(captchas[random_captcha])
         await ctx.send(file=discord.File("bot/src/cogs/misc/captcha.png"))
 
-        async def check_answer(answer):
-            if answer.content == captcha_answer and answer.author == ctx.author:
+        def check_answer(answer):
+            a_msg = answer.content
+            a_author = answer.author
+            if a_msg == captcha_answer and a_author == ctx.author:
                 return True
             else:
                 return False
 
-        answer = await self.bot.wait_for("message", check=check_answer)
+        answer = await self.bot.wait_for("message", check=check_answer)  # noqa F841
         channel = await self.bot.fetch_channel(bug_channel)
         await ctx.send("Correct CAPTCHA submission.")
         await channel.send(
-            f"Bug report from: `{ctx.author.name}` with id: `{ctx.author.id}`\nMessage:\n```{message}```"
+            f"Bug report from: `{ctx.author.name}` with id: `{ctx.author.id}`\nMessage:\n```{message}```"  # noqa E501
         )
         await ctx.send("Successfully sent your report! Have a nice day.")
+
+    @report.error
+    async def report_error(self, ctx, error):
+        if isinstance(error, commands.CommandOnCooldown):
+            await ctx.send(
+                "Slow down there bud, there can't be that many problems with this bot! Maybe tell us about it 12 hours later eh?"
+            )
+
+    @suggest.error
+    async def suggest_error(self, ctx, error):
+        if isinstance(error, commands.CommandOnCooldown):
+            await ctx.send(
+                "Slow down there bud, we'd love to hear your suggestions, but we're a bit pre-occupied at the moment. Come back at another time eh? Perhaps 12 hours later?"
+            )
 
 
 def setup(bot):
