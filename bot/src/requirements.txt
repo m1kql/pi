@@ -5,6 +5,7 @@ attrs==21.2.0
 black==21.5b1
 CacheControl==0.12.6
 cachetools==4.2.2
+captcha==0.3
 certifi==2020.12.5
 cffi==1.14.5
 chardet==4.0.0
@@ -34,6 +35,7 @@ multidict==5.1.0
 mypy-extensions==0.4.3
 packaging==20.9
 pathspec==0.8.1
+Pillow==8.1.0
 proto-plus==1.18.1
 protobuf==3.17.0
 pyasn1==0.4.8
@@ -54,4 +56,5 @@ typing-extensions==3.10.0.0
 uritemplate==3.0.1
 urllib3==1.26.4
 Werkzeug==2.0.1
+wheezy.captcha==3.0.1
 yarl==1.6.3
