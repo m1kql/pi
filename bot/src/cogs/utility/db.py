@@ -6,23 +6,69 @@ import os
 
 load_dotenv()
 
-firebase_type=os.getenv("firebase_type")
-firebase_project_id=os.getenv("firebase_project_id")
-firebase_private_key_id=os.getenv("firebase_private_key_id")
-firebase_private_key=os.getenv("firebase_private_key")
-firebase_client_email=os.getenv("firebase_client_email")
-firebase_client_id=os.getenv("firebase_client_id")
-firebase_auth_uri=os.getenv("firebase_auth_uri")
-firebase_token_uri=os.getenv("firebase_token_uri")
-firebase_auth_provider_x509_cert_url=os.getenv("firebase_auth_provider_x509_cert_url")
-firebase_client_x509_cert_url=os.getenv("firebase_client_x509_cert_url")
+firebase_type = os.getenv("firebase_type")
+firebase_project_id = os.getenv("firebase_project_id")
+firebase_private_key_id = os.getenv("firebase_private_key_id")
+firebase_private_key = os.getenv("firebase_private_key")
+firebase_client_email = os.getenv("firebase_client_email")
+firebase_client_id = os.getenv("firebase_client_id")
+firebase_auth_uri = os.getenv("firebase_auth_uri")
+firebase_token_uri = os.getenv("firebase_token_uri")
+firebase_auth_provider_x509_cert_url = os.getenv("firebase_auth_provider_x509_cert_url")
+firebase_client_x509_cert_url = os.getenv("firebase_client_x509_cert_url")
+
 
 def buildJSON():
-  JSONstring = "{" + "\n" + '"type"' + ":" + f'"{firebase_type}"'+ "," + '"project_id"' + ":" + f'"{firebase_project_id}"'+ "," + '"private_key_id"' + ":" + f'"{firebase_private_key_id}"'+ "," + '"private_key"' + ":" + f'"{firebase_private_key}"'+ "," + '"client_email"' + ":" + f'"{firebase_client_email}"'+ "," + '"client_id"' + ":" + f'"{firebase_client_id}"'+ "," + '"auth_uri"' + ":" + f'"{firebase_auth_uri}"'+ "," + '"token_uri"' + ":" + f'"{firebase_token_uri}"'+ "," + '"auth_provider_x509_cert_url"' + ":" + f'"{firebase_auth_provider_x509_cert_url}"'+ "," + '"client_x509_cert_url"' + ":" + f'"{firebase_client_x509_cert_url}"'+ "\n" + "}"
-  f = open("firebase_config.json", "w")
-  f.write(JSONstring)
-  f.close()
-  return "firebase_config.json"
+    JSONstring = (
+        "{"
+        + "\n"
+        + '"type"'
+        + ":"
+        + f'"{firebase_type}"'
+        + ","
+        + '"project_id"'
+        + ":"
+        + f'"{firebase_project_id}"'
+        + ","
+        + '"private_key_id"'
+        + ":"
+        + f'"{firebase_private_key_id}"'
+        + ","
+        + '"private_key"'
+        + ":"
+        + f'"{firebase_private_key}"'
+        + ","
+        + '"client_email"'
+        + ":"
+        + f'"{firebase_client_email}"'
+        + ","
+        + '"client_id"'
+        + ":"
+        + f'"{firebase_client_id}"'
+        + ","
+        + '"auth_uri"'
+        + ":"
+        + f'"{firebase_auth_uri}"'
+        + ","
+        + '"token_uri"'
+        + ":"
+        + f'"{firebase_token_uri}"'
+        + ","
+        + '"auth_provider_x509_cert_url"'
+        + ":"
+        + f'"{firebase_auth_provider_x509_cert_url}"'
+        + ","
+        + '"client_x509_cert_url"'
+        + ":"
+        + f'"{firebase_client_x509_cert_url}"'
+        + "\n"
+        + "}"
+    )
+    f = open("firebase_config.json", "w")
+    f.write(JSONstring)
+    f.close()
+    return "firebase_config.json"
+
 
 appCredentials = credentials.Certificate(buildJSON())
 firebase_admin.initialize_app(appCredentials)
