@@ -15,7 +15,12 @@ RUN pip install --upgrade pip
 COPY requirements.txt requirements.txt
 RUN pip install -U -r requirements.txt
 
-COPY . . 
+COPY cogs/ cogs/
+RUN touch firebase_config.json
+COPY . .
+# make sure everything is in the right place 
+RUN pwd
+RUN ls -a
 
 CMD ["python", "main.py"]
 
