@@ -188,7 +188,7 @@ class ContestProblems(commands.Cog):
                     )
 
                     if reactions[reaction.emoji] == sol:
-                        await ctx.send("Correct.")
+                        await ctx.send(f"<@{ctx.author.id}> Correct.")
                         user_collection_ref.update(
                             {
                                 questions_solved: firestore.Increment(
@@ -201,7 +201,7 @@ class ContestProblems(commands.Cog):
                         )
                         break
                     elif reactions[reaction.emoji] == "quit":
-                        await ctx.send("You quit.")
+                        await ctx.send(f"<@{ctx.author.id}> You quit.")
                         user_collection_ref.update(
                             {
                                 questions_attempted: firestore.Increment(
@@ -211,7 +211,7 @@ class ContestProblems(commands.Cog):
                         )
                         break
                     else:
-                        await ctx.send("Wrong")
+                        await ctx.send(f"<@{ctx.author.id}> Wrong")
                         user_collection_ref.update(
                             {
                                 questions_failed: firestore.Increment(
@@ -225,7 +225,7 @@ class ContestProblems(commands.Cog):
                         break
             else:
                 await ctx.send(
-                    "Sorry, there is no solution file for this question yet, we are working hard to add more files."
+                    f"<@{ctx.author.id}> Sorry, there is no solution file for this question yet, we are working hard to add more files."
                 )
 
     @commands.command(aliases=["l5", "last5", "lfive"])
@@ -268,7 +268,7 @@ class ContestProblems(commands.Cog):
                     f"https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AIME/{aime_year}/{random_aime_id}/{last_5}/statement.png"
                 )
                 await ctx.send(
-                    "Sorry, there is no solution file for this question yet, we are working hard to add more files."
+                    f"<@{ctx.author.id}> Sorry, there is no solution file for this question yet, we are working hard to add more files."
                 )
                 user_collection_ref.update(
                     {
@@ -287,7 +287,7 @@ class ContestProblems(commands.Cog):
                     f"https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/USAMO/{usamo_year}/{last_5}/statement.png"
                 )
                 await ctx.send(
-                    "Sorry, there is no solution file for this question yet, we are working hard to add more files."
+                    f"<@{ctx.author.id}> Sorry, there is no solution file for this question yet, we are working hard to add more files."
                 )
                 user_collection_ref.update(
                     {
@@ -306,7 +306,7 @@ class ContestProblems(commands.Cog):
                     f"https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/USAJMO/{usajmo_year}/{last_5}/statement.png"
                 )
                 await ctx.send(
-                    "Sorry, there is no solution file for this question yet, we are working hard to add more files."
+                    f"<@{ctx.author.id}> Sorry, there is no solution file for this question yet, we are working hard to add more files."
                 )
                 user_collection_ref.update(
                     {
@@ -343,7 +343,7 @@ class ContestProblems(commands.Cog):
 
                 if reactions[reaction.emoji] == sol:
                     await ctx.send(
-                        "Correct. However, you may want to check against this get a better understanding"
+                        f"<@{ctx.author.id}> Correct. However, you may want to check against this get a better understanding"
                     )
                     await ctx.send(
                         f"https://artofproblemsolving.com/wiki/index.php?title={random_year}_AMC_{random_contest}_Problems/Problem_{last_5}"
@@ -367,7 +367,7 @@ class ContestProblems(commands.Cog):
                     )
                     break
                 elif reactions[reaction.emoji] == "quit":
-                    await ctx.send("You quit.")
+                    await ctx.send(f"<@{ctx.author.id}> You quit.")
                     user_collection_ref.update(
                         {
                             questions_attempted: firestore.Increment(
@@ -381,7 +381,7 @@ class ContestProblems(commands.Cog):
                     break
                 else:
                     await ctx.send(
-                        "Wrong. You may want to check against this get a better understanding"
+                        f"<@{ctx.author.id}> Wrong. You may want to check against this get a better understanding"
                     )
                     await ctx.send(
                         f"https://artofproblemsolving.com/wiki/index.php?title={random_year}_AMC_{random_contest}_Problems/Problem_{last_5}"
@@ -428,7 +428,7 @@ class ContestProblems(commands.Cog):
 
                 if reactions[reaction.emoji] == sol:
                     await ctx.send(
-                        "Correct. However, you may want to check against this get a better understanding"
+                        f"<@{ctx.author.id}> Correct. However, you may want to check against this get a better understanding"
                     )
                     await ctx.send(
                         f"https://artofproblemsolving.com/wiki/index.php?title={random_year}_AMC_{amc_id}_Problems/Problem_{last_5}"
@@ -452,7 +452,7 @@ class ContestProblems(commands.Cog):
                     )
                     break
                 elif reactions[reaction.emoji] == "quit":
-                    await ctx.send("You quit.")
+                    await ctx.send(f"<@{ctx.author.id}> You quit.")
                     user_collection_ref.update(
                         {
                             questions_attempted: firestore.Increment(
@@ -466,7 +466,7 @@ class ContestProblems(commands.Cog):
                     break
                 else:
                     await ctx.send(
-                        "Wrong. You may want to check against this get a better understanding"
+                        f"<@{ctx.author.id}> Wrong. You may want to check against this get a better understanding"
                     )
                     await ctx.send(
                         f"https://artofproblemsolving.com/wiki/index.php?title={random_year}_AMC_{amc_id}_Problems/Problem_{last_5}"
@@ -531,7 +531,7 @@ class ContestProblems(commands.Cog):
 
                 if reactions[reaction.emoji] == sol:
                     await ctx.send(
-                        "Correct. However, you may want to check against this get a better understanding"
+                        f"<@{ctx.author.id}> Correct. However, you may want to check against this get a better understanding"
                     )
                     await ctx.send(
                         f"https://artofproblemsolving.com/wiki/index.php?title={random_year}_AMC_{random_contest}_Problems/Problem_{random_problem}"
@@ -555,7 +555,7 @@ class ContestProblems(commands.Cog):
                     )
                     break
                 elif reactions[reaction.emoji] == "quit":
-                    await ctx.send("You quit.")
+                    await ctx.send(f"<@{ctx.author.id}> You quit.")
                     user_collection_ref.update(
                         {
                             questions_attempted: firestore.Increment(
@@ -569,7 +569,7 @@ class ContestProblems(commands.Cog):
                     break
                 else:
                     await ctx.send(
-                        "Wrong. You may want to check against this get a better understanding"
+                        f"<@{ctx.author.id}> Wrong. You may want to check against this get a better understanding"
                     )
                     await ctx.send(
                         f"https://artofproblemsolving.com/wiki/index.php?title={random_year}_AMC_{random_contest}_Problems/Problem_{random_problem}"
@@ -612,7 +612,7 @@ class ContestProblems(commands.Cog):
 
                 if reactions[reaction.emoji] == sol:
                     await ctx.send(
-                        "Correct. However, you may want to check against this get a better understanding"
+                        f"<@{ctx.author.id}> Correct. However, you may want to check against this get a better understanding"
                     )
                     await ctx.send(
                         f"https://artofproblemsolving.com/wiki/index.php?title={random_year}_AMC_{random_contest}_Problems/Problem_{random_problem}"
@@ -636,7 +636,7 @@ class ContestProblems(commands.Cog):
                     )
                     break
                 elif reactions[reaction.emoji] == "quit":
-                    await ctx.send("You quit.")
+                    await ctx.send(f"<@{ctx.author.id}> You quit.")
                     user_collection_ref.update(
                         {
                             questions_attempted: firestore.Increment(
@@ -650,7 +650,7 @@ class ContestProblems(commands.Cog):
                     break
                 else:
                     await ctx.send(
-                        "Wrong. You may want to check against this get a better understanding"
+                        f"<@{ctx.author.id}> Wrong. You may want to check against this get a better understanding"
                     )
                     await ctx.send(
                         f"https://artofproblemsolving.com/wiki/index.php?title={random_year}_AMC_{random_contest}_Problems/Problem_{random_problem}"

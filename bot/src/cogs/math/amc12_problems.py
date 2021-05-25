@@ -97,7 +97,7 @@ class AMC12(commands.Cog):
 
                 if reactions[reaction.emoji] == sol:
                     await ctx.send(
-                        "Correct. However, you may want to check against this get a better understanding"
+                        f"<@{ctx.author.id}> Correct. However, you may want to check against this get a better understanding"
                     )
                     await ctx.send(
                         f"https://artofproblemsolving.com/wiki/index.php?title={randomyear}_AMC_{amc12_contestid}_Problems/Problem_{amc_easy}"
@@ -121,7 +121,7 @@ class AMC12(commands.Cog):
                     )
                     break
                 elif reactions[reaction.emoji] == "quit":
-                    await ctx.send("You quit.")
+                    await ctx.send(f"<@{ctx.author.id}> You quit.")
                     user_collection_ref.update(
                         {
                             questions_attempted: firestore.Increment(
@@ -135,7 +135,7 @@ class AMC12(commands.Cog):
                     break
                 else:
                     await ctx.send(
-                        "Wrong. You may want to check against this get a better understanding"
+                        f"<@{ctx.author.id}> Wrong. You may want to check against this get a better understanding"
                     )
                     await ctx.send(
                         f"https://artofproblemsolving.com/wiki/index.php?title={randomyear}_AMC_{amc12_contestid}_Problems/Problem_{amc_easy}"
@@ -183,7 +183,7 @@ class AMC12(commands.Cog):
 
                 if reactions[reaction.emoji] == sol:
                     await ctx.send(
-                        "Correct. However, you may want to check against this get a better understanding"
+                        f"<@{ctx.author.id}> Correct. However, you may want to check against this get a better understanding"
                     )
                     await ctx.send(
                         f"https://artofproblemsolving.com/wiki/index.php?title={randomyear}_AMC_{amc12_contestid}_Problems/Problem_{amc_med}"
@@ -205,7 +205,7 @@ class AMC12(commands.Cog):
                     )
                     break
                 elif reactions[reaction.emoji] == "quit":
-                    await ctx.send("You quit.")
+                    await ctx.send(f"<@{ctx.author.id}> You quit.")
                     user_collection_ref.update(
                         {
                             questions_attempted: firestore.Increment(
@@ -219,7 +219,7 @@ class AMC12(commands.Cog):
                     break
                 else:
                     await ctx.send(
-                        "Wrong. You may want to check against this get a better understanding"
+                        f"<@{ctx.author.id}> Wrong. You may want to check against this get a better understanding"
                     )
                     await ctx.send(
                         f"https://artofproblemsolving.com/wiki/index.php?title={randomyear}_AMC_{amc12_contestid}_Problems/Problem_{amc_med}"
@@ -267,7 +267,7 @@ class AMC12(commands.Cog):
 
                 if reactions[reaction.emoji] == sol:
                     await ctx.send(
-                        "Correct. However, you may want to check against this get a better understanding"
+                        f"<@{ctx.author.id}> Correct. However, you may want to check against this get a better understanding"
                     )
                     await ctx.send(
                         f"https://artofproblemsolving.com/wiki/index.php?title={randomyear}_AMC_{amc12_contestid}_Problems/Problem_{amc_hard}"
@@ -291,7 +291,7 @@ class AMC12(commands.Cog):
                     )
                     break
                 elif reactions[reaction.emoji] == "quit":
-                    await ctx.send("You quit.")
+                    await ctx.send(f"<@{ctx.author.id}> You quit.")
                     user_collection_ref.update(
                         {
                             questions_attempted: firestore.Increment(
@@ -305,7 +305,7 @@ class AMC12(commands.Cog):
                     break
                 else:
                     await ctx.send(
-                        "Wrong. You may want to check against this get a better understanding"
+                        f"<@{ctx.author.id}> Wrong. You may want to check against this get a better understanding"
                     )
                     await ctx.send(
                         f"https://artofproblemsolving.com/wiki/index.php?title={randomyear}_AMC_{amc12_contestid}_Problems/Problem_{amc_hard}"
