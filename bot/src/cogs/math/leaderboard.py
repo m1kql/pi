@@ -58,11 +58,11 @@ class Leaderboard(commands.Cog):
                 description_string += (
                     f"**{sorted_names[i]}** - `{sorted_scores[i]}` points\n"
                 )
-        elif sorted_amount <=10:
+        elif sorted_amount <= 10:
             for i in range(sorted_amount):
                 description_string += (
                     f"**{sorted_names[i]}** - `{sorted_scores[i]}` points\n"
-            )
+                )
 
         # embed
         leaderboard_embed = discord.Embed(
