@@ -44,20 +44,24 @@ class Leaderboard(commands.Cog):
             else:
                 leaderboard.append((user.name, points))
 
-        print(leaderboard)
         sorted_leaderboard = sorted(
             leaderboard, key=lambda x: (x[1], x[1]), reverse=True
         )
-        print(sorted_leaderboard)
 
         sorted_names = [i[0] for i in sorted_leaderboard]
         sorted_scores = [i[1] for i in sorted_leaderboard]
         sorted_amount = len([i[1] for i in sorted_leaderboard])
 
         description_string = ""
-        for i in range(sorted_amount):
-            description_string += (
-                f"**{sorted_names[i]}** - `{sorted_scores[i]}` points\n"
+        if sorted_amount > 10:
+            for i in range(10):
+                description_string += (
+                    f"**{sorted_names[i]}** - `{sorted_scores[i]}` points\n"
+                )
+        elif sorted_amount <=10:
+            for i in range(sorted_amount):
+                description_string += (
+                    f"**{sorted_names[i]}** - `{sorted_scores[i]}` points\n"
             )
 
         # embed
