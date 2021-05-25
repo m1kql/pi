@@ -593,12 +593,12 @@ class ContestProblems(commands.Cog):
 
             else:
                 question = await ctx.send(
-                    f"https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{random_year}/{amc_id}/{random_problem}/statement.png"
+                    f"https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{random_year}/{random_contest}/{random_problem}/statement.png"
                 )
                 sol = str(
                     (
                         requests.get(
-                            f"https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{random_year}/{amc_id}/{random_problem}/sol.txt"
+                            f"https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{random_year}/{random_contest}/{random_problem}/sol.txt"
                         ).text
                     ).strip()
                 )
@@ -615,7 +615,7 @@ class ContestProblems(commands.Cog):
                         "Correct. However, you may want to check against this get a better understanding"
                     )
                     await ctx.send(
-                        f"https://artofproblemsolving.com/wiki/index.php?title={random_year}_AMC_{amc_id}_Problems/Problem_{random_problem}"
+                        f"https://artofproblemsolving.com/wiki/index.php?title={random_year}_AMC_{random_contest}_Problems/Problem_{random_problem}"
                     )
                     user_collection_ref.update(
                         {
@@ -653,7 +653,7 @@ class ContestProblems(commands.Cog):
                         "Wrong. You may want to check against this get a better understanding"
                     )
                     await ctx.send(
-                        f"https://artofproblemsolving.com/wiki/index.php?title={random_year}_AMC_{amc_id}_Problems/Problem_{random_problem}"
+                        f"https://artofproblemsolving.com/wiki/index.php?title={random_year}_AMC_{random_contest}_Problems/Problem_{random_problem}"
                     )
                     user_collection_ref.update(
                         {
