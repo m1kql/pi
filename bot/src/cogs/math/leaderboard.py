@@ -1,16 +1,16 @@
 import discord
 from discord.ext import commands
 from ..utility.db import (
-    get_user_db,
+    get_guild_db,
 )
 
 # leaderboard help
 leaderboard_help = {
     "name": "=leaderboard help info",
     "description_name": "Description",
-    "description": "View your server's leaderboard and see who has the most points. Retrieves the top 10 users.",
+    "description": "View your server's leaderboard and see who has the most points. Retrieves the top 10 users by default.",
     "usage_name": "Usage",
-    "usage_description": "`=leaderboard`",
+    "usage_description": "`=leaderboard <number of users>`",
     "alias_name": "Aliases",
     "alias_description": "`rank`, `lb`",
     "usage_syntax_name": "Usage syntax",
@@ -29,51 +29,56 @@ class Leaderboard(commands.Cog):
         print("Leaderboard cog has been loaded sucessfully")
 
     @commands.command(aliases=["rank", "lb"])
-    async def leaderboard(self, ctx):
+    async def leaderboard(self, ctx, top_users=None):
+
+        if top_users is None:
+            top_users = 10
+        else:
+            pass
 
         user_guild_id = ctx.guild.id
+        users = await get_guild_db(user_guild_id)
 
-        leaderboard = []
+        leaderboard_total = []
+        leaderboard = {}
 
-        for user in ctx.guild.members:
-            score = await get_user_db(user_guild_id, user.id)
-            points = score.get("total_weighted_points")
-            if points is None:
-                points = 0
-                leaderboard.append((user.name, points))
-            else:
-                leaderboard.append((user.name, points))
+        for user in users:
+            user_dict = user.to_dict()
+            user_name_id = user.id
+            total = user_dict.get("total_weighted_points")
+            if total is None or total == 0:
+                total = 0
+            leaderboard[total] = user_name_id
+            print(leaderboard[total])
+            leaderboard_total.append(total)
 
-        sorted_leaderboard = sorted(
-            leaderboard, key=lambda x: (x[1], x[1]), reverse=True
-        )
+        leaderboard_total = sorted(leaderboard_total, reverse=True)
+        print("LEADERBOARD USERS:" + str(leaderboard_total))
 
-        sorted_names = [i[0] for i in sorted_leaderboard]
-        sorted_scores = [i[1] for i in sorted_leaderboard]
-        sorted_amount = len([i[1] for i in sorted_leaderboard])
-
-        description_string = ""
-        if sorted_amount > 10:
-            for i in range(10):
-                description_string += (
-                    f"**{sorted_names[i]}** - `{sorted_scores[i]}` points\n"
-                )
-        elif sorted_amount <= 10:
-            for i in range(sorted_amount):
-                description_string += (
-                    f"**{sorted_names[i]}** - `{sorted_scores[i]}` points\n"
-                )
-
-        # embed
         leaderboard_embed = discord.Embed(
             title=f"Leaderboard for guild: `{ctx.guild.name}`",
+            description=f"Showing the top {top_users} users",
             color=0xA4D0DA,
-            description=description_string,
         )
-        leaderboard_embed.set_footer(
-            text="Such scores are not indicative of a user's skill level or aptitude in mathematics or logical reasoning."
-        )
-        leaderboard_embed.set_thumbnail(url=ctx.guild.icon_url)
+
+        index = 1
+
+        for score in leaderboard_total:
+            name_id = leaderboard[score]
+            print("USER ID:" + str(name_id))
+            user_object = await self.bot.fetch_user(name_id)
+            user_name = user_object.name
+            print(user_name)
+            if score == 0:
+                break
+            leaderboard_embed.add_field(
+                name=f"{index}. {user_name}", value=f"`{score}` points", inline=False
+            )
+            if index == top_users:
+                break
+            else:
+                index += 1
+
         await ctx.send(embed=leaderboard_embed)
 
 

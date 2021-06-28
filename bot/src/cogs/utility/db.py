@@ -131,3 +131,12 @@ async def get_user_db(guild_id, user_id):
             (db.collection(str(guild_id)).document(str(user_id))).get()
         ).to_dict()
         return new_user_db_dict
+
+
+async def get_guild_db(guild_id):
+    guild_collection = ""
+    try:
+        guild_collection = db.collection(str(guild_id)).get()
+        return guild_collection
+    except Exception:
+        pass

@@ -2,7 +2,6 @@ import math
 
 import discord
 from discord.ext import commands
-from firebase_admin import firestore
 
 from ..math.contest_problems import amc10_weight, amc12_weight
 from ..utility.db import (
@@ -72,7 +71,7 @@ class Stats(commands.Cog):
         user_collection_ref = db.collection(str(user_guild_id)).document(str(user_id))
 
         user_collection_ref.update(
-            {total_weighted_points_string: firestore.Increment(total_weighted_points)}
+            {total_weighted_points_string: total_weighted_points}
         )
 
         user_object = self.bot.get_user(user_id)
