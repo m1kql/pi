@@ -129,6 +129,7 @@ Prefix: `=`
 | `=fetch` | Yes | `contest_name year [contest id, optional] problem_number` | Fetches a problem from the specified path |
 | `=last5` | Yes | `contest_name` | Returns the last 5 questions from a specified contest |
 | `=random` | No |  | Returns a random problem |
+| `=leaderboard` | Yes | `amount of users` | Shows the leaderboard for the server with a specified amount of users. If it is not given, the default is 10. |
 
 <u>Miscellaneous</u>
 <br>
