@@ -34,22 +34,11 @@ report_help = {
 }
 
 captchas = [
-    "hello17world",
-    "126discord",
-    "Erp21J",
-    "0Odqrs",
-    "28Hf0S",
-    "02jdm",
-    "02mciUD7",
-    "9Dkru72Q",
-    "81JdiU7W",
-    "edjewUE",
-    "932JDE",
-    "9999o",
-    "01LOdem",
-    "e9DJem3S",
-    "ZZxts9W73",
-    "dxZIW3x",
+    "qr8g",
+    "rg9q",
+    "rg3q",
+    "ga2q",
+    "rg4h",
 ]
 
 load_dotenv()
@@ -69,7 +58,7 @@ class Report(commands.Cog):
     @commands.command()
     @commands.cooldown(2, 43200, commands.BucketType.user)
     async def suggest(self, ctx, *, message):
-        random_captcha = random.randint(0, 17)
+        random_captcha = random.randint(0, 5)
         image_dimensions = ImageCaptcha(width=280, height=90)
         data = image_dimensions.generate(captchas[random_captcha])  # noqa F841
         image_dimensions.write(
@@ -97,7 +86,7 @@ class Report(commands.Cog):
     @commands.command()
     @commands.cooldown(2, 43200, commands.BucketType.user)
     async def report(self, ctx, *, message):
-        random_captcha = random.randint(0, 17)
+        random_captcha = random.randint(0, 5)
         image_dimensions = ImageCaptcha(width=280, height=90)
         data = image_dimensions.generate(captchas[random_captcha])  # noqa F841
         image_dimensions.write(
