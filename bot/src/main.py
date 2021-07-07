@@ -1,7 +1,6 @@
 import os
 import discord
 from discord.ext import commands
-from discord.ext.commands.core import command
 from dotenv import load_dotenv
 
 intents = discord.Intents.default()
@@ -76,6 +75,7 @@ async def unloadcog(ctx, cogname=None):
 async def hello(ctx):
     await ctx.send("Hello, World!")
 
+
 @bot.command()
 @commands.is_owner()
 async def announcement(ctx, *, announcement_message):
@@ -84,5 +84,6 @@ async def announcement(ctx, *, announcement_message):
             if isinstance(channel, discord.TextChannel):
                 await channel.send(announcement_message)
                 await ctx.send("It was successful.")
+
 
 bot.run(token)
