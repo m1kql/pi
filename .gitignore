@@ -15,3 +15,8 @@ env.bak/
 venv.bak/
 .mypy_cache/
 firebase_config.json
+**/**/_site
+**/**/.bundle
+**/**/.sass-cache
+**/**/Gemfile.lock
+**/**/.jekyll-cache
