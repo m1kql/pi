@@ -17,7 +17,7 @@
                         </svg>
 
                         <div class="videoContainer hidden">
-                            <video class="screenvideo" autoplay="autoplay" controls="controls">
+                            <video id="demoVideo" class="screenvideo" autoplay muted loop>
                             </video>
                         </div>  
                         
@@ -63,3 +63,6 @@
         </div>
 </body>
 </html>
+<script>
+    document.getElementById('demoVideo').play();
+</script>
