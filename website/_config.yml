@@ -10,6 +10,12 @@ github_username: yak-fumblepack/pi
 app_icon: assets/Pi.png
 app_description: "Pi is a discord bot for those interested in contest math to practice their skills while engaging in a casual conversation with their fellow mathematicians or friends."
 
+logo: assets/Pi.png
+
+author: Mike Liang
+
+url: "https://pi-bot.netlify.app"
+
 base_url: ""
 
 # Feature List                            Edit, add or remove features to be presented.
