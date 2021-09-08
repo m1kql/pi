@@ -8,6 +8,7 @@ from ..math.leaderboard import leaderboard_help
 from ..math.contest_problems import fetch_help, last5_help, random_help
 from ..math.amc12_problems import amc12_help
 from ..misc.report import suggest_help, report_help
+from ..misc.code import code_help
 from ..misc.info import invite_help, info_help
 
 
@@ -210,7 +211,7 @@ class Help(commands.Cog):
             elif ("misc" or "miscellaneous") in args.lower():
                 help_embed = discord.Embed(
                     title="Miscellaneous commands",
-                    description="`=suggest`, `=report`",
+                    description="`=suggest`, `=report`, `=runcode`",
                     color=0xA4D0DA,
                 )
                 help_embed.set_footer(
@@ -372,6 +373,32 @@ class Help(commands.Cog):
                     inline=False,
                 )
                 help_embed.set_footer(text=f"{latex_help.get('footer')}")
+                await ctx.send(embed=help_embed)
+            elif ("code" or "run" or "program") in args.lower():
+                help_embed = discord.Embed(
+                    title=f"{code_help.get('name')}", color=0xA4D0DA
+                )
+                help_embed.add_field(
+                    name=f"{code_help.get('description_name')}",
+                    value=f"{code_help.get('description')}",
+                    inline=False,
+                )
+                help_embed.add_field(
+                    name=f"{code_help.get('usage_name')}",
+                    value=f"{code_help.get('usage_description')}",
+                    inline=False,
+                )
+                help_embed.add_field(
+                    name=f"{code_help.get('alias_name')}",
+                    value=f"{code_help.get('alias_description')}",
+                    inline=False,
+                )
+                help_embed.add_field(
+                    name=f"{code_help.get('usage_syntax_name')}",
+                    value=f"{code_help.get('usage_syntax')}",
+                    inline=False,
+                )
+                help_embed.set_footer(text=f"{code_help.get('footer')}")
                 await ctx.send(embed=help_embed)
         else:
             # embed

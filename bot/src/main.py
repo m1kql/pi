@@ -20,6 +20,7 @@ cogs = [
     "cogs.misc.help",
     "cogs.misc.info",
     "cogs.misc.report",
+    "cogs.misc.code",
 ]
 
 
