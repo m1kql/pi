@@ -1,11 +1,13 @@
 <div align="center">
   <img src="./Pi.png" alt="" width="256">
   <br>
-  <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/yak-fumblepack/pi/Build?style=plastic">
-  <img src="https://img.shields.io/github/license/yak-fumblepack/pi?style=plastic" alt="">
-  <img src="https://img.shields.io/badge/code%20style-black-000000.svg?style=plastic" alt="">
-  <a href="https://discord.com/api/oauth2/authorize?client_id=842500814625832990&permissions=0&scope=bot"><img src="https://img.shields.io/badge/Invite-7289DA?style=plastic&logo=discord&logoColor=white" alt="Invite the bot to your discord server"></a>
+  <br>
 </div>
+
+<img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/yak-fumblepack/pi/Build?logo=github&logoColor=lightgrey&style=plastic">
+<img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/yak-fumblepack/pi?style=plastic">
+<img alt="GitHub" src="https://img.shields.io/github/license/yak-fumblepack/pi?style=plastic">
+<a href="https://discord.com/api/oauth2/authorize?client_id=842500814625832990&permissions=0&scope=bot"><img src="https://img.shields.io/badge/Invite-7289DA?style=plastic&logo=discord&logoColor=white" alt="Invite the bot to your discord server"></a>
 
 ## Overview
 
@@ -131,6 +133,8 @@ Prefix: `=`
 | `=tex`         | Yes           | `tex statement`                                           | Returns a rendered LaTeX statement                                                                            |
 | `=amc10`       | Yes           | `easy`, `medium`, `hard`                                  | Gives an AMC10 problem of the selected difficulty                                                             |
 | `=amc12`       | Yes           | `easy`, `medium`, `hard`                                  | Gives an AMC12 problem of the selected difficulty                                                             |
+| `=cmo`         | No            |                                                           | Gives you a random CMO problem.                                                                               |
+| `=aime`        | No            |                                                           | Gives you a random AIME I or II problem.                                                                      |
 | `=fetch`       | Yes           | `contest_name year [contest id, optional] problem_number` | Fetches a problem from the specified path                                                                     |
 | `=last5`       | Yes           | `contest_name`                                            | Returns the last 5 questions from a specified contest                                                         |
 | `=random`      | No            |                                                           | Returns a random problem                                                                                      |
