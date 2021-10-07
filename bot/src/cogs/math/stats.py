@@ -20,6 +20,7 @@ from ..utility.db import (
     questions_solved,
     usajmo_attempted,
     usamo_attempted,
+    cmo_attempted,
     total_weighted_points_string,
 )
 
@@ -67,7 +68,7 @@ class Stats(commands.Cog):
         )
         total_weighted_points = (
             float(user_data_dict["amc10_points"]) * amc10_weight
-        ) + (float(user_data_dict["amc10_points"]) * amc12_weight)
+        ) + (float(user_data_dict["amc12_points"]) * amc12_weight)
         user_collection_ref = db.collection(str(user_guild_id)).document(str(user_id))
 
         user_collection_ref.update(
@@ -90,7 +91,7 @@ class Stats(commands.Cog):
         )
         statistics_embed.add_field(
             name="Questions fetched",
-            value=f"AMC 10 fetched: `{user_data_dict[amc10_attempted]}`\nAMC 12 fetched: `{user_data_dict[amc12_attempted]}`\nAIME fetched: `{user_data_dict[aime_attempted]}`\nUSAMO fetched: `{user_data_dict[usamo_attempted]}`\nUSAJMO fetched: `{user_data_dict[usajmo_attempted]}`\nTotal fetched: `{user_data_dict[questions_attempted]}`",  # noqa E501
+            value=f"AMC 10 fetched: `{user_data_dict[amc10_attempted]}`\nAMC 12 fetched: `{user_data_dict[amc12_attempted]}`\nAIME fetched: `{user_data_dict[aime_attempted]}`\nUSAMO fetched: `{user_data_dict[usamo_attempted]}`\nUSAJMO fetched: `{user_data_dict[usajmo_attempted]}`\nCMO fetched: `{user_data_dict[cmo_attempted]}`\nTotal fetched: `{user_data_dict[questions_attempted]}`",  # noqa E501
         )
         statistics_embed.add_field(
             name="Questions failed",
