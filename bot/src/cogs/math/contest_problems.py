@@ -1,5 +1,6 @@
 from discord.ext import commands
 from firebase_admin import firestore
+
 from ..utility.db import (
     db,
     open_user_db,
@@ -9,6 +10,7 @@ from ..utility.db import (
     aime_attempted,
     usajmo_attempted,
     usamo_attempted,
+    cmo_attempted,
     amc10_attempted,
     amc10_failed,
     amc10_points,
@@ -63,6 +65,21 @@ random_help = {
     "footer": "Remember to omit < > and [ ] when giving commands",
 }
 
+# aime problems help
+aime_help = {
+    "name": "=aime help info",
+    "description_name": "Description",
+    "description": "Gives you a random AIME I or II question. \n**This command is unranked and will not give any points**",
+    "usage_name": "Usage",
+    "usage_description": "`=aime`",  # noqa E501
+    "alias_name": "Aliases",
+    "alias_description": "No aliases",
+    "usage_syntax_name": "Usage syntax",
+    "usage_syntax": "<required> [optional]",
+    "footer": "Remember to omit < > and [ ] when giving commands",
+}
+
+
 questions_attempted_amount = 1
 questions_failed_amount = 1
 questions_solved_amount = 1
@@ -73,7 +90,7 @@ amc10_failed_amount = 1
 amc12_failed_amount = 1
 
 amc12_correct_amount_easy = 2
-amc12_wrong_amount_easy = -2
+amc12_wrong_amount_easy = -4
 amc12_correct_amount_med = 6
 amc12_wrong_amount_med = -1.5
 amc12_correct_amount_hard = 15
@@ -81,7 +98,7 @@ amc12_wrong_amount_hard = -0.5
 amc12_attempted_amount = 1
 
 amc10_correct_amount_easy = 2
-amc10_wrong_amount_easy = -2
+amc10_wrong_amount_easy = -5  # push players to work for higher scores
 amc10_correct_amount_med = 6
 amc10_wrong_amount_med = -1.5
 amc10_correct_amount_hard = 15
@@ -91,6 +108,7 @@ amc10_attempted_amount = 1
 aime_attempted_amount = 1
 usamo_attempted_amount = 1
 usajmo_attempted_amount = 1
+cmo_attempted_amount = 1
 
 amc12_weight = 0.65
 amc10_weight = 0.35
@@ -111,6 +129,66 @@ class ContestProblems(commands.Cog):
         print("Contest problems cog has been loaded sucessfully")
 
     @commands.command()
+    async def cmo(self, ctx):
+        user_guild_id = ctx.guild.id
+        user_id = ctx.author.id
+
+        await open_user_db(user_guild_id, user_id)
+
+        user_collection_ref = db.collection(str(user_guild_id)).document(str(user_id))
+
+        user_collection_ref.update(
+            {
+                questions_attempted: firestore.Increment(questions_attempted_amount),
+                cmo_attempted: firestore.Increment(cmo_attempted_amount),
+            }
+        )
+
+        cmo_year = random.randint(1969, 1973)
+        cmo_question = random.randint(1, 9)
+        requested_path = "CMO/%d/%d", cmo_year, cmo_question
+
+        await ctx.send(
+            f"https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/{requested_path}/statement.png"
+        )
+        await ctx.send(
+            f"<@{ctx.author.id}> Sorry, there is no solution file for this question yet, we are working hard to add more files."
+        )
+
+    @commands.command()
+    async def aime(self, ctx):
+        user_guild_id = ctx.guild.id
+        user_id = ctx.author.id
+
+        await open_user_db(user_guild_id, user_id)
+
+        user_collection_ref = db.collection(str(user_guild_id)).document(str(user_id))
+
+        user_collection_ref.update(
+            {
+                questions_attempted: firestore.Increment(questions_attempted_amount),
+                aime_attempted: firestore.Increment(aime_attempted_amount),
+            }
+        )
+
+        aime_year = random.randint(1983, 2019)
+        aime_version = ["1", "2"]
+        aime_question = random.randint(1, 15)
+        requested_path = ""
+
+        if aime_year < 2000:
+            requested_path = "AIME/%d/%d", aime_year, aime_question
+        else:
+            requested_path = "AIME/%d/%s/%d", aime_year, aime_version, aime_question
+
+        await ctx.send(
+            f"https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/{requested_path}/statement.png"
+        )
+        await ctx.send(
+            f"<@{ctx.author.id}> Sorry, there is no solution file for this question yet, we are working hard to add more files."
+        )
+
+    @commands.command()
     async def fetch(self, ctx, *, args=None):
         user_guild_id = ctx.guild.id
         user_id = ctx.author.id
@@ -123,7 +201,6 @@ class ContestProblems(commands.Cog):
             if "aime" in args.lower():
                 user_collection_ref.update(
                     {
-                        questions_solved: firestore.Increment(questions_solved_amount),
                         questions_attempted: firestore.Increment(
                             questions_attempted_amount
                         ),
@@ -133,7 +210,6 @@ class ContestProblems(commands.Cog):
             elif "usamo" in args.lower():
                 user_collection_ref.update(
                     {
-                        questions_solved: firestore.Increment(questions_solved_amount),
                         questions_attempted: firestore.Increment(
                             questions_attempted_amount
                         ),
@@ -143,11 +219,19 @@ class ContestProblems(commands.Cog):
             elif "usajmo" in args.lower():
                 user_collection_ref.update(
                     {
-                        questions_solved: firestore.Increment(questions_solved_amount),
                         questions_attempted: firestore.Increment(
                             questions_attempted_amount
                         ),
                         usajmo_attempted: firestore.Increment(usajmo_attempted_amount),
+                    }
+                )
+            elif "cmo" in args.lower():
+                user_collection_ref.update(
+                    {
+                        questions_attempted: firestore.Increment(
+                            questions_attempted_amount
+                        ),
+                        cmo_attempted: firestore.Increment(cmo_attempted_amount),
                     }
                 )
 

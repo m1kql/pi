@@ -77,6 +77,14 @@ async def hello(ctx):
     await ctx.send("Hello, World!")
 
 
+@bot.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.CommandNotFound):
+        await ctx.send(
+            f"<@{ctx.message.author.id}> Invalid command! To view the list of categories type `+help` and `+help [command name]` to get more info on each command."
+        )
+
+
 @bot.command()
 @commands.is_owner()
 async def announcement(ctx, *, announcement_message):
