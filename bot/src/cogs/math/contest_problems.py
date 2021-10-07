@@ -1,7 +1,6 @@
 from discord.ext import commands
 from firebase_admin import firestore
 
-from bot.src.cogs.math.contests.aime import get_aime
 from ..utility.db import (
     db,
     open_user_db,
@@ -149,7 +148,7 @@ class ContestProblems(commands.Cog):
         cmo_question = random.randint(1, 9)
         requested_path = "CMO/%d/%d", cmo_year, cmo_question
 
-        question = await ctx.send(
+        await ctx.send(
             f"https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/{requested_path}/statement.png"
         )
         await ctx.send(
@@ -182,7 +181,7 @@ class ContestProblems(commands.Cog):
         else:
             requested_path = "AIME/%d/%s/%d", aime_year, aime_version, aime_question
 
-        question = await ctx.send(
+        await ctx.send(
             f"https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/{requested_path}/statement.png"
         )
         await ctx.send(
