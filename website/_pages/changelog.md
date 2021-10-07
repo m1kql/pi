@@ -10,7 +10,23 @@ This is the changelog for Pi, it's also a mirror of the [releases](https://githu
 <br>
 
 ### `Latest`
-# **Version 0.1.3**
+
+# **Version 0.3.0**
+
+#### What's new
+- Add in two new commands! 1 additional new contest, the CMO.
+
+[Support server](https://discord.gg/FrdqSyzg4t)
+
+### **Version 0.2.0**
+
+#### What's New
+-  Awesome new code running feature
+- <samp>=run &lt;language&gt; &lt;your code&gt; </samp>
+
+[Support server](https://discord.gg/FrdqSyzg4t)
+
+### **Version 0.1.3**
 
 #### Bug Fixes
 - Fixed the problems regarding the captcha, users can now send suggestions and bug reports properly.
