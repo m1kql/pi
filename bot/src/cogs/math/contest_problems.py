@@ -146,7 +146,7 @@ class ContestProblems(commands.Cog):
 
         cmo_year = random.randint(1969, 1973)
         cmo_question = random.randint(1, 9)
-        requested_path = "CMO/%d/%d", cmo_year, cmo_question
+        requested_path = f"CMO/{cmo_year}/{cmo_question}"
 
         await ctx.send(
             f"https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/{requested_path}/statement.png"
@@ -177,9 +177,9 @@ class ContestProblems(commands.Cog):
         requested_path = ""
 
         if aime_year < 2000:
-            requested_path = "AIME/%d/%d", aime_year, aime_question
+            requested_path = f"AIME/{aime_year}/{aime_question}"
         else:
-            requested_path = "AIME/%d/%s/%d", aime_year, aime_version, aime_question
+            requested_path = f"AIME/{aime_year}/{aime_version}/{aime_question}"
 
         await ctx.send(
             f"https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/{requested_path}/statement.png"

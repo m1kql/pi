@@ -4,10 +4,12 @@
   <br>
 </div>
 
-<img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/yak-fumblepack/pi/Build?logo=github&logoColor=lightgrey&style=plastic">
+<div>
+<img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/yak-fumblepack/pi/Build?logo=github&logoColor=lightgrey&style=plastic"> 
 <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/yak-fumblepack/pi?style=plastic">
 <img alt="GitHub" src="https://img.shields.io/github/license/yak-fumblepack/pi?style=plastic">
 <a href="https://discord.com/api/oauth2/authorize?client_id=842500814625832990&permissions=0&scope=bot"><img src="https://img.shields.io/badge/Invite-7289DA?style=plastic&logo=discord&logoColor=white" alt="Invite the bot to your discord server"></a>
+</div>
 
 ## Overview
 

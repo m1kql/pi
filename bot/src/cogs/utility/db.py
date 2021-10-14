@@ -114,6 +114,7 @@ async def open_user_db(guild_id, user_id):
             usajmo_attempted: 0,
             amc10_points: 0,
             amc12_points: 0,
+            cmo_attempted: 0,
         }
         db.collection(str(guild_id)).document(str(user_id)).set(data)
 
@@ -141,3 +142,8 @@ async def get_guild_db(guild_id):
         return guild_collection
     except Exception:
         pass
+
+
+async def get_all():
+    collection_ref = db.collections()
+    return collection_ref
