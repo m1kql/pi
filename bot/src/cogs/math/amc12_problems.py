@@ -72,260 +72,248 @@ class AMC12(commands.Cog):
             )
 
         if difficulty.lower() == "e" or difficulty.lower() == "easy":
-            while True:
-                randomyear = str(random.randint(2002, 2019))
-                amc_easy = str(random.randint(1, 10))
-                amc12_contestid = str(random.choice(amc12_id))
+            randomyear = str(random.randint(2002, 2019))
+            amc_easy = str(random.randint(1, 10))
+            amc12_contestid = str(random.choice(amc12_id))
 
-                question = await ctx.send(
-                    f"https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{amc12_contestid}/{amc_easy}/statement.png"
+            question = await ctx.send(
+                f"<https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{amc12_contestid}/{amc_easy}/statement.png>"
+            )
+            sol = str(
+                (
+                    requests.get(
+                        f"https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{amc12_contestid}/{amc_easy}/sol.txt"
+                    ).text
+                ).strip()
+            )
+
+            for emoji in reactions:
+                await question.add_reaction(emoji)
+
+            reaction, user = await self.bot.wait_for(
+                "reaction_add", check=check_answer
+            )
+
+            if reactions[reaction.emoji] == sol:
+                await ctx.send(
+                    f"<@{ctx.author.id}> Correct. However, you may want to check against this get a better understanding"
                 )
-                sol = str(
-                    (
-                        requests.get(
-                            f"https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{amc12_contestid}/{amc_easy}/sol.txt"
-                        ).text
-                    ).strip()
+                await ctx.send(
+                    f"<https://artofproblemsolving.com/wiki/index.php?title={randomyear}_AMC_{amc12_contestid}_Problems/Problem_{amc_easy}>"
                 )
-
-                for emoji in reactions:
-                    await question.add_reaction(emoji)
-
-                reaction, user = await self.bot.wait_for(
-                    "reaction_add", check=check_answer
+                user_collection_ref.update(
+                    {
+                        questions_solved: firestore.Increment(
+                            questions_solved_amount
+                        ),
+                        questions_attempted: firestore.Increment(
+                            questions_attempted_amount
+                        ),
+                        amc12_attempted: firestore.Increment(
+                            amc12_attempted_amount
+                        ),
+                        amc12_points: firestore.Increment(
+                            amc12_correct_amount_easy
+                        ),
+                        amc12_solved: firestore.Increment(amc12_solved_amount),
+                    }
                 )
-
-                if reactions[reaction.emoji] == sol:
-                    await ctx.send(
-                        f"<@{ctx.author.id}> Correct. However, you may want to check against this get a better understanding"
-                    )
-                    await ctx.send(
-                        f"https://artofproblemsolving.com/wiki/index.php?title={randomyear}_AMC_{amc12_contestid}_Problems/Problem_{amc_easy}"
-                    )
-                    user_collection_ref.update(
-                        {
-                            questions_solved: firestore.Increment(
-                                questions_solved_amount
-                            ),
-                            questions_attempted: firestore.Increment(
-                                questions_attempted_amount
-                            ),
-                            amc12_attempted: firestore.Increment(
-                                amc12_attempted_amount
-                            ),
-                            amc12_points: firestore.Increment(
-                                amc12_correct_amount_easy
-                            ),
-                            amc12_solved: firestore.Increment(amc12_solved_amount),
-                        }
-                    )
-                    break
-                elif reactions[reaction.emoji] == "quit":
-                    await ctx.send(f"<@{ctx.author.id}> You quit.")
-                    user_collection_ref.update(
-                        {
-                            questions_attempted: firestore.Increment(
-                                questions_attempted_amount
-                            ),
-                            amc12_attempted: firestore.Increment(
-                                amc12_attempted_amount
-                            ),
-                        }
-                    )
-                    break
-                else:
-                    await ctx.send(
-                        f"<@{ctx.author.id}> Wrong. You may want to check against this get a better understanding"
-                    )
-                    await ctx.send(
-                        f"https://artofproblemsolving.com/wiki/index.php?title={randomyear}_AMC_{amc12_contestid}_Problems/Problem_{amc_easy}"
-                    )
-                    user_collection_ref.update(
-                        {
-                            questions_failed: firestore.Increment(
-                                questions_failed_amount
-                            ),
-                            questions_attempted: firestore.Increment(
-                                questions_attempted_amount
-                            ),
-                            amc12_attempted: firestore.Increment(
-                                amc12_attempted_amount
-                            ),
-                            amc12_points: firestore.Increment(amc12_wrong_amount_easy),
-                            amc12_failed: firestore.Increment(amc12_failed_amount),
-                        }
-                    )
-                    break
+            elif reactions[reaction.emoji] == "quit":
+                await ctx.send(f"<@{ctx.author.id}> You quit.")
+                user_collection_ref.update(
+                    {
+                        questions_attempted: firestore.Increment(
+                            questions_attempted_amount
+                        ),
+                        amc12_attempted: firestore.Increment(
+                            amc12_attempted_amount
+                        ),
+                    }
+                )
+            else:
+                await ctx.send(
+                    f"<@{ctx.author.id}> Wrong. You may want to check against this get a better understanding"
+                )
+                await ctx.send(
+                    f"<https://artofproblemsolving.com/wiki/index.php?title={randomyear}_AMC_{amc12_contestid}_Problems/Problem_{amc_easy}>"
+                )
+                user_collection_ref.update(
+                    {
+                        questions_failed: firestore.Increment(
+                            questions_failed_amount
+                        ),
+                        questions_attempted: firestore.Increment(
+                            questions_attempted_amount
+                        ),
+                        amc12_attempted: firestore.Increment(
+                            amc12_attempted_amount
+                        ),
+                        amc12_points: firestore.Increment(amc12_wrong_amount_easy),
+                        amc12_failed: firestore.Increment(amc12_failed_amount),
+                    }
+                )
 
         if difficulty.lower() == "med" or difficulty.lower() == "medium":
-            while True:
-                randomyear = str(random.randint(2002, 2019))
-                amc_med = str(random.randint(11, 16))
-                amc12_contestid = str(random.choice(amc12_id))
+            randomyear = str(random.randint(2002, 2019))
+            amc_med = str(random.randint(11, 16))
+            amc12_contestid = str(random.choice(amc12_id))
 
-                question = await ctx.send(
-                    f"https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{amc12_contestid}/{amc_med}/statement.png"
+            question = await ctx.send(
+                f"<https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{amc12_contestid}/{amc_med}/statement.png>"
+            )
+            sol = str(
+                (
+                    requests.get(
+                        f"https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{amc12_contestid}/{amc_med}/sol.txt"
+                    ).text
+                ).strip()
+            )
+
+            for emoji in reactions:
+                await question.add_reaction(emoji)
+
+            reaction, user = await self.bot.wait_for(
+                "reaction_add", check=check_answer
+            )
+
+            if reactions[reaction.emoji] == sol:
+                await ctx.send(
+                    f"<@{ctx.author.id}> Correct. However, you may want to check against this get a better understanding"
                 )
-                sol = str(
-                    (
-                        requests.get(
-                            f"https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{amc12_contestid}/{amc_med}/sol.txt"
-                        ).text
-                    ).strip()
+                await ctx.send(
+                    f"<https://artofproblemsolving.com/wiki/index.php?title={randomyear}_AMC_{amc12_contestid}_Problems/Problem_{amc_med}>"
                 )
-
-                for emoji in reactions:
-                    await question.add_reaction(emoji)
-
-                reaction, user = await self.bot.wait_for(
-                    "reaction_add", check=check_answer
+                user_collection_ref.update(
+                    {
+                        questions_solved: firestore.Increment(
+                            questions_solved_amount
+                        ),
+                        questions_attempted: firestore.Increment(
+                            questions_attempted_amount
+                        ),
+                        amc12_attempted: firestore.Increment(
+                            amc12_attempted_amount
+                        ),
+                        amc12_points: firestore.Increment(amc12_correct_amount_med),
+                        amc12_solved: firestore.Increment(amc12_solved_amount),
+                    }
                 )
-
-                if reactions[reaction.emoji] == sol:
-                    await ctx.send(
-                        f"<@{ctx.author.id}> Correct. However, you may want to check against this get a better understanding"
-                    )
-                    await ctx.send(
-                        f"https://artofproblemsolving.com/wiki/index.php?title={randomyear}_AMC_{amc12_contestid}_Problems/Problem_{amc_med}"
-                    )
-                    user_collection_ref.update(
-                        {
-                            questions_solved: firestore.Increment(
-                                questions_solved_amount
-                            ),
-                            questions_attempted: firestore.Increment(
-                                questions_attempted_amount
-                            ),
-                            amc12_attempted: firestore.Increment(
-                                amc12_attempted_amount
-                            ),
-                            amc12_points: firestore.Increment(amc12_correct_amount_med),
-                            amc12_solved: firestore.Increment(amc12_solved_amount),
-                        }
-                    )
-                    break
-                elif reactions[reaction.emoji] == "quit":
-                    await ctx.send(f"<@{ctx.author.id}> You quit.")
-                    user_collection_ref.update(
-                        {
-                            questions_attempted: firestore.Increment(
-                                questions_attempted_amount
-                            ),
-                            amc12_attempted: firestore.Increment(
-                                amc12_attempted_amount
-                            ),
-                        }
-                    )
-                    break
-                else:
-                    await ctx.send(
-                        f"<@{ctx.author.id}> Wrong. You may want to check against this get a better understanding"
-                    )
-                    await ctx.send(
-                        f"https://artofproblemsolving.com/wiki/index.php?title={randomyear}_AMC_{amc12_contestid}_Problems/Problem_{amc_med}"
-                    )
-                    user_collection_ref.update(
-                        {
-                            questions_failed: firestore.Increment(
-                                questions_failed_amount
-                            ),
-                            questions_attempted: firestore.Increment(
-                                questions_attempted_amount
-                            ),
-                            amc12_attempted: firestore.Increment(
-                                amc12_attempted_amount
-                            ),
-                            amc12_points: firestore.Increment(amc12_wrong_amount_med),
-                            amc12_failed: firestore.Increment(amc12_failed_amount),
-                        }
-                    )
-                    break
+            elif reactions[reaction.emoji] == "quit":
+                await ctx.send(f"<@{ctx.author.id}> You quit.")
+                user_collection_ref.update(
+                    {
+                        questions_attempted: firestore.Increment(
+                            questions_attempted_amount
+                        ),
+                        amc12_attempted: firestore.Increment(
+                            amc12_attempted_amount
+                        ),
+                    }
+                )
+            else:
+                await ctx.send(
+                    f"<@{ctx.author.id}> Wrong. You may want to check against this get a better understanding"
+                )
+                await ctx.send(
+                    f"<https://artofproblemsolving.com/wiki/index.php?title={randomyear}_AMC_{amc12_contestid}_Problems/Problem_{amc_med}>"
+                )
+                user_collection_ref.update(
+                    {
+                        questions_failed: firestore.Increment(
+                            questions_failed_amount
+                        ),
+                        questions_attempted: firestore.Increment(
+                            questions_attempted_amount
+                        ),
+                        amc12_attempted: firestore.Increment(
+                            amc12_attempted_amount
+                        ),
+                        amc12_points: firestore.Increment(amc12_wrong_amount_med),
+                        amc12_failed: firestore.Increment(amc12_failed_amount),
+                    }
+                )
 
         if difficulty.lower() == "h" or difficulty.lower() == "hard":
-            while True:
-                randomyear = str(random.randint(2002, 2019))
-                amc_hard = str(random.randint(17, 25))
-                amc12_contestid = str(random.choice(amc12_id))
+            randomyear = str(random.randint(2002, 2019))
+            amc_hard = str(random.randint(17, 25))
+            amc12_contestid = str(random.choice(amc12_id))
 
-                question = await ctx.send(
-                    f"https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{amc12_contestid}/{amc_hard}/statement.png"
+            question = await ctx.send(
+                f"<https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{amc12_contestid}/{amc_hard}/statement.png>"
+            )
+            sol = str(
+                (
+                    requests.get(
+                        f"https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{amc12_contestid}/{amc_hard}/sol.txt"
+                    ).text
+                ).strip()
+            )
+
+            for emoji in reactions:
+                await question.add_reaction(emoji)
+
+            reaction, user = await self.bot.wait_for(
+                "reaction_add", check=check_answer
+            )
+
+            if reactions[reaction.emoji] == sol:
+                await ctx.send(
+                    f"<@{ctx.author.id}> Correct. However, you may want to check against this get a better understanding"
                 )
-                sol = str(
-                    (
-                        requests.get(
-                            f"https://raw.githubusercontent.com/yak-fumblepack/mathcontests/master/AMC/{randomyear}/{amc12_contestid}/{amc_hard}/sol.txt"
-                        ).text
-                    ).strip()
+                await ctx.send(
+                    f"<https://artofproblemsolving.com/wiki/index.php?title={randomyear}_AMC_{amc12_contestid}_Problems/Problem_{amc_hard}>"
                 )
-
-                for emoji in reactions:
-                    await question.add_reaction(emoji)
-
-                reaction, user = await self.bot.wait_for(
-                    "reaction_add", check=check_answer
+                user_collection_ref.update(
+                    {
+                        questions_solved: firestore.Increment(
+                            questions_solved_amount
+                        ),
+                        questions_attempted: firestore.Increment(
+                            questions_attempted_amount
+                        ),
+                        amc12_attempted: firestore.Increment(
+                            amc12_attempted_amount
+                        ),
+                        amc12_points: firestore.Increment(
+                            amc12_correct_amount_hard
+                        ),
+                        amc12_solved: firestore.Increment(amc12_solved_amount),
+                    }
                 )
-
-                if reactions[reaction.emoji] == sol:
-                    await ctx.send(
-                        f"<@{ctx.author.id}> Correct. However, you may want to check against this get a better understanding"
-                    )
-                    await ctx.send(
-                        f"https://artofproblemsolving.com/wiki/index.php?title={randomyear}_AMC_{amc12_contestid}_Problems/Problem_{amc_hard}"
-                    )
-                    user_collection_ref.update(
-                        {
-                            questions_solved: firestore.Increment(
-                                questions_solved_amount
-                            ),
-                            questions_attempted: firestore.Increment(
-                                questions_attempted_amount
-                            ),
-                            amc12_attempted: firestore.Increment(
-                                amc12_attempted_amount
-                            ),
-                            amc12_points: firestore.Increment(
-                                amc12_correct_amount_hard
-                            ),
-                            amc12_solved: firestore.Increment(amc12_solved_amount),
-                        }
-                    )
-                    break
-                elif reactions[reaction.emoji] == "quit":
-                    await ctx.send(f"<@{ctx.author.id}> You quit.")
-                    user_collection_ref.update(
-                        {
-                            questions_attempted: firestore.Increment(
-                                questions_attempted_amount
-                            ),
-                            amc12_attempted: firestore.Increment(
-                                amc12_attempted_amount
-                            ),
-                        }
-                    )
-                    break
-                else:
-                    await ctx.send(
-                        f"<@{ctx.author.id}> Wrong. You may want to check against this get a better understanding"
-                    )
-                    await ctx.send(
-                        f"https://artofproblemsolving.com/wiki/index.php?title={randomyear}_AMC_{amc12_contestid}_Problems/Problem_{amc_hard}"
-                    )
-                    user_collection_ref.update(
-                        {
-                            questions_failed: firestore.Increment(
-                                questions_failed_amount
-                            ),
-                            questions_attempted: firestore.Increment(
-                                questions_attempted_amount
-                            ),
-                            amc12_attempted: firestore.Increment(
-                                amc12_attempted_amount
-                            ),
-                            amc12_points: firestore.Increment(amc12_wrong_amount_hard),
-                            amc12_failed: firestore.Increment(amc12_failed_amount),
-                        }
-                    )
-                    break
+            elif reactions[reaction.emoji] == "quit":
+                await ctx.send(f"<@{ctx.author.id}> You quit.")
+                user_collection_ref.update(
+                    {
+                        questions_attempted: firestore.Increment(
+                            questions_attempted_amount
+                        ),
+                        amc12_attempted: firestore.Increment(
+                            amc12_attempted_amount
+                        ),
+                    }
+                )
+            else:
+                await ctx.send(
+                    f"<@{ctx.author.id}> Wrong. You may want to check against this get a better understanding"
+                )
+                await ctx.send(
+                    f"<https://artofproblemsolving.com/wiki/index.php?title={randomyear}_AMC_{amc12_contestid}_Problems/Problem_{amc_hard}>"
+                )
+                user_collection_ref.update(
+                    {
+                        questions_failed: firestore.Increment(
+                            questions_failed_amount
+                        ),
+                        questions_attempted: firestore.Increment(
+                            questions_attempted_amount
+                        ),
+                        amc12_attempted: firestore.Increment(
+                            amc12_attempted_amount
+                        ),
+                        amc12_points: firestore.Increment(amc12_wrong_amount_hard),
+                        amc12_failed: firestore.Increment(amc12_failed_amount),
+                    }
+                )
 
 
 def setup(bot):

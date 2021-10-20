@@ -36,6 +36,7 @@ def buildJSON():
 
     return "firebase_config.json"
 
+
 appCredentials = credentials.Certificate(buildJSON())
 firebase_admin.initialize_app(appCredentials)
 
