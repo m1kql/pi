@@ -21,20 +21,25 @@ firebase_client_x509_cert_url = os.getenv("firebase_client_x509_cert_url")
 
 def buildJSON():
     with open("firebase_config.json", "w", encoding="utf-8") as f:
-        f.write(json.dumps({
-            "type": firebase_type,
-            "project_id": firebase_project_id,
-            "private_key_id": firebase_private_key_id,
-            "private_key": firebase_private_key,
-            "client_email": firebase_client_email,
-            "client_id": firebase_client_id,
-            "auth_uri": firebase_auth_uri,
-            "token_uri": firebase_token_uri,
-            "auth_provider_x509_cert_url": firebase_auth_provider_x509_cert_url,
-            "client_x509_cert_url": firebase_client_x509_cert_url
-        }))
+        f.write(
+            json.dumps(
+                {
+                    "type": firebase_type,
+                    "project_id": firebase_project_id,
+                    "private_key_id": firebase_private_key_id,
+                    "private_key": firebase_private_key,
+                    "client_email": firebase_client_email,
+                    "client_id": firebase_client_id,
+                    "auth_uri": firebase_auth_uri,
+                    "token_uri": firebase_token_uri,
+                    "auth_provider_x509_cert_url": firebase_auth_provider_x509_cert_url,
+                    "client_x509_cert_url": firebase_client_x509_cert_url,
+                }
+            )
+        )
 
     return "firebase_config.json"
+
 
 appCredentials = credentials.Certificate(buildJSON())
 firebase_admin.initialize_app(appCredentials)
