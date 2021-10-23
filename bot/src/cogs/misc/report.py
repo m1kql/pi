@@ -67,7 +67,7 @@ class Report(commands.Cog):
         captcha_answer = str(captchas[random_captcha])
         await ctx.send(file=discord.File("bot/src/cogs/misc/captcha.png"))
 
-        answer = await self.bot.wait_for(
+        answer = await self.bot.wait_for(  # noqa F841
             "message",
             check=(
                 lambda answer: answer.content == captcha_answer
@@ -92,7 +92,7 @@ class Report(commands.Cog):
         )
         captcha_answer = str(captchas[random_captcha])
         await ctx.send(file=discord.File("bot/src/cogs/misc/captcha.png"))
-        answer = await self.bot.wait_for(
+        answer = await self.bot.wait_for(  # noqa F841
             "message",
             check=(
                 lambda answer: answer.content == captcha_answer
