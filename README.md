@@ -144,11 +144,11 @@ Prefix: `=`
 
 <u>Miscellaneous</u>
 <br>
-| Command    | Has Arguments | Arguments         | Expected Output                                                                            |
-| ---------- | ------------- | ----------------- | ------------------------------------------------------------------------------------------ |
-| `=suggest` | Yes           | `your message`    | Allows you to make a feature suggestion or any suggestion. Needs you to complete a captcha |
-| `=report`  | Yes           | `your message`    | Allows you to make a bug report or any report on an issue. Needs you to complete a captcha |
-| `=runcode` | Yes           | `language` `code` | Runs code from different languages.                                                        |
+| Command    | Has Arguments | Arguments                          | Expected Output                                                                            |
+| ---------- | ------------- | ---------------------------------- | ------------------------------------------------------------------------------------------ |
+| `=suggest` | Yes           | `your message`                     | Allows you to make a feature suggestion or any suggestion. Needs you to complete a captcha |
+| `=report`  | Yes           | `your message`                     | Allows you to make a bug report or any report on an issue. Needs you to complete a captcha |
+| `=runcode` | Yes           | `language` `code` `file extension` | Runs code from different languages.                                                        |
 
 ## Contributing
 
