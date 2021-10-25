@@ -67,15 +67,13 @@ class Report(commands.Cog):
         captcha_answer = str(captchas[random_captcha])
         await ctx.send(file=discord.File("bot/src/cogs/misc/captcha.png"))
 
-        def check_answer(answer):
-            a_msg = answer.content
-            a_author = answer.author
-            if a_msg == captcha_answer and a_author == ctx.author:
-                return True
-            else:
-                return False
-
-        answer = await self.bot.wait_for("message", check=check_answer)  # noqa F841
+        answer = await self.bot.wait_for(  # noqa F841
+            "message",
+            check=(
+                lambda answer: answer.content == captcha_answer
+                and answer.author == ctx.author
+            ),
+        )
         channel = await self.bot.fetch_channel(feature_channel)
         await ctx.send("Correct CAPTCHA submission.")
         await channel.send(
@@ -94,16 +92,13 @@ class Report(commands.Cog):
         )
         captcha_answer = str(captchas[random_captcha])
         await ctx.send(file=discord.File("bot/src/cogs/misc/captcha.png"))
-
-        def check_answer(answer):
-            a_msg = answer.content
-            a_author = answer.author
-            if a_msg == captcha_answer and a_author == ctx.author:
-                return True
-            else:
-                return False
-
-        answer = await self.bot.wait_for("message", check=check_answer)  # noqa F841
+        answer = await self.bot.wait_for(  # noqa F841
+            "message",
+            check=(
+                lambda answer: answer.content == captcha_answer
+                and answer.author == ctx.author
+            ),
+        )
         channel = await self.bot.fetch_channel(bug_channel)
         await ctx.send("Correct CAPTCHA submission.")
         await channel.send(
