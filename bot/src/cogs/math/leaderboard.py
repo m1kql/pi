@@ -29,31 +29,23 @@ class Leaderboard(commands.Cog):
         print("Leaderboard cog has been loaded sucessfully")
 
     @commands.command(aliases=["rank", "lb"])
-    async def leaderboard(self, ctx, top_users=None):
-
-        if top_users is None:
-            top_users = 10
-        else:
-            pass
-
+    async def leaderboard(self, ctx, top_users=10):
         user_guild_id = ctx.guild.id
         users = await get_guild_db(user_guild_id)
 
-        leaderboard_total = []
-        leaderboard = {}
+        leaderboard_tuple = []
 
-        for user in users:
+        for index, user in enumerate(users):
+            if index == top_users:
+                break
             user_dict = user.to_dict()
-            user_name_id = user.id
-            total = user_dict.get("total_weighted_points")
-            if total is None or total == 0:
-                total = 0
-            leaderboard[total] = user_name_id
-            print(leaderboard[total])
-            leaderboard_total.append(total)
+            total = user_dict.get("total_weighted_points") or 0
+            if total != 0:
+                leaderboard_tuple.append((total, user.id))
+                print(leaderboard_tuple[-1][1])
 
-        leaderboard_total = sorted(leaderboard_total, reverse=True)
-        print("LEADERBOARD USERS:" + str(leaderboard_total))
+        leaderboard_tuple.sort(key=lambda user: user[0], reverse=True)
+        print(f"LEADERBOARD USERS: {list(map(lambda user: user[0], leaderboard_tuple))}")
 
         leaderboard_embed = discord.Embed(
             title=f"Leaderboard for guild: `{ctx.guild.name}`",
@@ -61,23 +53,16 @@ class Leaderboard(commands.Cog):
             color=0xA4D0DA,
         )
 
-        index = 1
-
-        for score in leaderboard_total:
-            name_id = leaderboard[score]
-            print("USER ID:" + str(name_id))
-            user_object = await self.bot.fetch_user(name_id)
+        for score, user_id in leaderboard_tuple:
+            print(f"User id: {user_id}")
+            user_object = await self.bot.fetch_user(user_id)
             user_name = user_object.name
-            print(user_name)
-            if score == 0:
-                break
+            user_discriminator = user_object.discriminator
+            print(f"User name: {user_name}")
+            print(f"User discriminator: {user_discriminator}")
             leaderboard_embed.add_field(
-                name=f"{index}. {user_name}", value=f"`{score}` points", inline=False
+                name=f"{index}. {user_name}#{user_discriminator}", value=f"`{score}` points", inline=False
             )
-            if index == top_users:
-                break
-            else:
-                index += 1
 
         await ctx.send(embed=leaderboard_embed)
 
